@@ -7,10 +7,6 @@
     </profile>
   </component>
   <component name="VcsDirectoryMappings">
-<<<<<<< HEAD
-    <mapping directory="" vcs="Git" />
-=======
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
->>>>>>> origin/master
   </component>
 </project>
