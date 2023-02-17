@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color: black">
 <head>
     <title>Group List</title>
 </head>
-<body>
-<h1>Group List</h1>
-<p></p>
+<body style="display: flex;justify-content: space-between;flex-wrap: wrap">
 {{range .Artists}}
-    <p>Name: {{.Name}},</p><p> Members: {{.Members}}</p>
-    <img src="{{.Image}}"  alt="">
+    <img src="{{.Image}}" style="margin-bottom: 10vh" width="270px" height="270px" alt="">
 {{end}}
 </body>
 </html>

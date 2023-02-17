@@ -26,11 +26,11 @@ var tpl = template.Must(template.ParseGlob("web/templates/*"))
 var data Data
 
 func FillData() {
-	res, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	apiRes, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err == nil {
-		_ = json.NewDecoder(res.Body).Decode(&data.Artists)
+		_ = json.NewDecoder(apiRes.Body).Decode(&data.Artists)
 	}
-	defer res.Body.Close()
+	defer apiRes.Body.Close()
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
