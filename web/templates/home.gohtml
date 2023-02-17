@@ -3,11 +3,12 @@
 <head>
     <title>Group List</title>
 </head>
-<p>
+<body>
 <h1>Group List</h1>
 <p></p>
 {{range .Artists}}
     <p>Name: {{.Name}},</p><p> Members: {{.Members}}</p>
+    <img src="{{.Image}}"  alt="">
 {{end}}
 </body>
 </html>

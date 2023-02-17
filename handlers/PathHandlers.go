@@ -3,7 +3,6 @@ package handlers
 import (
 	"encoding/json"
 	"html/template"
-	"log"
 	"net/http"
 )
 
@@ -30,8 +29,6 @@ func FillData() {
 	res, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err == nil {
 		_ = json.NewDecoder(res.Body).Decode(&data.Artists)
-	} else {
-		log.Fatal(err)
 	}
 	defer res.Body.Close()
 }
