@@ -13,6 +13,9 @@ func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("web/static/"))))
 	http.HandleFunc("/home", handlers.HomeHandler)
 	http.HandleFunc("/artist/", handlers.ArtistHandler)
+
+	handlers.FillData()
+
 	fmt.Println("Listening on http://localhost" + PORT + "/home")
 	if err := http.ListenAndServe(PORT, nil); err != nil {
 		log.Fatal(err)

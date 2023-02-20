@@ -36,12 +36,11 @@ func FillData() {
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	FillData()
 	_ = tpl.ExecuteTemplate(w, "home.gohtml", data)
 }
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
-	if len(parts) < 3 {
+	if len(parts) != 3 {
 		http.NotFound(w, r)
 		return
 	}
