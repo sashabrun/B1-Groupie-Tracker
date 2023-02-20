@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"html/template"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 type Data struct {
@@ -36,4 +38,14 @@ func FillData() {
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	FillData()
 	_ = tpl.ExecuteTemplate(w, "home.gohtml", data)
+}
+func ArtistHandler(w http.ResponseWriter, r *http.Request) {
+	parts := strings.Split(r.URL.Path, "/")
+	if len(parts) < 3 {
+		http.NotFound(w, r)
+		return
+	}
+	id, _ := strconv.Atoi(parts[2])
+	artist := data.Artists[id-1]
+	_ = tpl.ExecuteTemplate(w, "artist.gohtml", artist)
 }

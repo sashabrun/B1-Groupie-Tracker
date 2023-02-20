@@ -3,9 +3,11 @@
 <head>
     <title>Group List</title>
 </head>
-<body style="display: flex;justify-content: space-between;flex-wrap: wrap">
+<body style="display: flex;justify-content: space-around;flex-wrap: wrap">
 {{range .Artists}}
-    <img src="{{.Image}}" style="margin-bottom: 10vh" width="270px" height="270px" alt="">
+    <a href="/artist/{{.Id}}">
+        <img src="{{.Image}}" style="margin-bottom: 40px" width="270px" height="270px" alt="">
+    </a>
 {{end}}
 </body>
 </html>

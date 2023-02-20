@@ -12,6 +12,7 @@ const PORT = ":8080"
 func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("web/static/"))))
 	http.HandleFunc("/home", handlers.HomeHandler)
+	http.HandleFunc("/artist/", handlers.ArtistHandler)
 	fmt.Println("Listening on http://localhost" + PORT + "/home")
 	if err := http.ListenAndServe(PORT, nil); err != nil {
 		log.Fatal(err)
