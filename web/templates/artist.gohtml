@@ -3,15 +3,31 @@
 <head>
     <title>Group List</title>
 </head>
-<body style="display: flex;justify-content: space-around;flex-wrap: wrap">
-<img src="{{.Image}}" width="270px" height="270px" alt="">
+<body style="display: flex;flex-direction: column;align-items: center;justify-content: space-around">
+<img src="{{.Image}}" width="180px" height="180px" alt="">
 <p style="color: wheat">
-    {{.Name        }}</p>
+GROUP NAME:
+</p>
 <p style="color: wheat">
-    {{.Members     }}</p>
+{{.Name        }}
+</p>
 <p style="color: wheat">
-    {{.CreationDate}}</p>
+MEMBERS:
+</p>
+{{range .Members     }}
+    <li style="color: wheat">{{.}}</li>
+{{end}}
 <p style="color: wheat">
-    {{.FirstAlbum  }}</p>
+CREATION DATE:
+</p>
+<p style="color: wheat">
+{{.CreationDate}}
+</p>
+<p style="color: wheat">
+FIRST ALBUM:
+</p>
+<p style="color: wheat">
+{{.FirstAlbum  }}
+</p>
 </body>
 </html>
