@@ -35,6 +35,9 @@ func FillData() {
 	defer apiRes.Body.Close()
 }
 
+func LoadingHandler(w http.ResponseWriter, r *http.Request) {
+	_ = tpl.ExecuteTemplate(w, "loading.html", data)
+}
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "home.gohtml", data)
 }
