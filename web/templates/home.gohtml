@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html style="background-color: black">
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/home.css">
     <title>Group List</title>
 </head>
-<body style="display: flex;justify-content: space-around;flex-wrap: wrap">
-{{range .Artists}}
-    <a href="/artist/{{.Id}}">
-        <img src="{{.Image}}" style="margin-bottom: 40px" width="270px" height="270px" alt="">
-    </a>
-{{end}}
+<body>
+
+<div class="artists">
+    {{range .Artists}}
+        <a href="/artist/{{.Id}}">
+            <img src="{{.Image}}" style="margin-bottom: 40px" width="270px" height="270px" alt="">
+        </a>
+    {{end}}
+</div>
+
 </body>
 </html>
