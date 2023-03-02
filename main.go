@@ -14,6 +14,7 @@ func main() {
 	http.HandleFunc("/loading", handlers.LoadingHandler)
 	http.HandleFunc("/home", handlers.HomeHandler)
 	http.HandleFunc("/artist/", handlers.ArtistHandler)
+	http.HandleFunc("/", handlers.ErrorHandler)
 
 	handlers.FillData()
 

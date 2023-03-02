@@ -51,3 +51,6 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	artist := data.Artists[id-1]
 	_ = tpl.ExecuteTemplate(w, "artist.gohtml", artist)
 }
+func ErrorHandler(w http.ResponseWriter, r *http.Request) {
+	_ = tpl.ExecuteTemplate(w, "error.html", data)
+}
