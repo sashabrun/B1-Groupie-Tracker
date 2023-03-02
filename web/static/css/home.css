@@ -4,7 +4,7 @@ body {
 }
 
 header {
-    background-color: #141414;
+    background-color: #1C1C1C;
     color: white;
     display: flex;
     flex-direction: row;
@@ -79,4 +79,98 @@ nav a:hover {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+}
+
+footer {
+    background-color: #1C1C1C;
+    color: #757575;
+    font-size: 14px;
+    padding: 20px 0;
+}
+
+footer a {
+    color: #757575;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #B3B3B3;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 10px;
+}
+
+footer hr {
+    border-color: #757575;
+}
+
+footer p {
+    margin-bottom: 0;
+}
+
+.button-page {
+    display: flex;
+    justify-content: center;
+}
+
+.button-page > * {
+    margin-left: 4.5rem;
+    margin-right: 4.5rem;
+}
+
+.corporation {
+    margin-left: 21.1vw;
+}
+
+.social-icons {
+    list-style: none;
+    text-align: right;
+    margin-right: 68vw;
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+}
+
+.social-icons li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.social-icons li:first-child {
+    margin-left: 0;
+}
+
+.social-icons a {
+    color: #757575;
+    font-size: 18px;
+}
+
+.social-icons a:hover {
+    color: #B3B3B3;
+}
+
+.facebook {
+    font-size: 18px;
+    height: 3.4vh;
+    width: 0.9vw;
+}
+.instagram {
+    font-size: 18px;
+    height: 3vh;
+    width: 1.5vw;
+}
+.twitter {
+    font-size: 18px;
+    height: 3vh;
+    width: 1.5vw;
+}
+.youtube {
+    font-size: 18px;
+    height: 2.5vh;
+    width: 1.5vw;
 }
