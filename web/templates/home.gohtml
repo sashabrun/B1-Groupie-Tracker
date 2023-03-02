@@ -6,14 +6,34 @@
     <title>Group List</title>
 </head>
 <body>
+<header>
+    <div class="logo">
+        <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="Groupie Logo">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Artists</a></li>
+            <li><a href="#">The most Liked</a></li>
+            <li><a href="#">My list</a></li>
+        </ul>
+    </nav>
+    <form class="search-form">
+        <input type="text" placeholder="Artists, Albums, Years">
+        <button type="submit"><img class="logo2" src="../static/Image/search-icon.png"></button>
+    </form>
+</header>
 
-<div class="artists">
-    {{range .Artists}}
-        <a href="/artist/{{.Id}}">
-            <img src="{{.Image}}" style="margin-bottom: 40px" width="270px" height="270px" alt="">
-        </a>
-    {{end}}
-</div>
+<main>
+    <div class="artists">
+        {{range .Artists}}
+            <a href="/artist/{{.Id}}">
+                <img src="{{.Image}}" style="margin-bottom: 40px" width="270px" height="270px" alt="">
+            </a>
+        {{end}}
+    </div>
+</main>
+
 
 </body>
 </html>

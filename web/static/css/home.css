@@ -1,3 +1,79 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #141414;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.logo img {
+    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-top: 1vh;
+    height: 30px;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    list-style: none;
+    margin: 0 10px;
+}
+
+nav a {
+    font-family: "Arial";
+    color: white;
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+nav a:hover {
+    border-bottom: 2px solid white;
+    padding-bottom: 5px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+}
+
+.search-form input[type="text"] {
+    border: none;
+    padding: 7.5px;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-form button {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 4.5vh;
+}
+
+.logo2{
+    height: 2vh;
+    width: 1vw;
+}
 
 .artists {
     display: flex;
