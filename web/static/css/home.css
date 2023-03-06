@@ -75,12 +75,6 @@ nav a:hover {
     width: 1vw;
 }
 
-.artists {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
 footer {
     background-color: #1C1C1C;
     color: #757575;
