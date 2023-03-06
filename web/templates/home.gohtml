@@ -12,8 +12,8 @@
     </div>
     <nav>
         <ul>
-            <li><a href="http://localhost:8080/artists">Home</a></li>
-            <li><a href="#">Artists</a></li>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/artists">Artists</a></li>
             <li><a href="#">The Most Liked</a></li>
             <li><a href="#">My List</a></li>
         </ul>
@@ -25,13 +25,7 @@
 </header>
 
 <main>
-    <div class="artists">
-        {{range .Artists}}
-            <a href="/artist/{{.Id}}">
-                <img src="{{.Image}}" style="margin-bottom: 40px" width="270px" height="270px" alt="">
-            </a>
-        {{end}}
-    </div>
+
 </main>
 
 <footer>
