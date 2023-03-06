@@ -41,6 +41,9 @@ func LoadingHandler(w http.ResponseWriter, r *http.Request) {
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "home.gohtml", data)
 }
+func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
+	_ = tpl.ExecuteTemplate(w, "artists.html", data)
+}
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) != 3 {
