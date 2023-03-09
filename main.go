@@ -18,6 +18,7 @@ func main() {
 	http.HandleFunc("/", handlers.ErrorHandler)
 
 	handlers.FillData()
+	handlers.CategoryFill()
 
 	fmt.Println("Listening on http://localhost" + PORT + "/loading")
 	if err := http.ListenAndServe(PORT, nil); err != nil {

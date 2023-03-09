@@ -1,15 +1,22 @@
 package handlers
 
 import (
+	"context"
 	"encoding/json"
+	"fmt"
+	"github.com/zmb3/spotify"
+	"golang.org/x/oauth2/clientcredentials"
 	"html/template"
+	_ "log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 )
 
 type Data struct {
-	Artists []Artist
+	Artists    []Artist
+	Categories map[string][]Artist
 }
 
 type Artist struct {
@@ -42,7 +49,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "home.gohtml", data)
 }
 func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
-	_ = tpl.ExecuteTemplate(w, "artists.html", data)
+	_ = tpl.ExecuteTemplate(w, "artists.gohtml", data)
 }
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
@@ -56,4 +63,61 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 }
 func ErrorHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "error.html", data)
+}
+
+func CategoryFill() {
+	data.Categories = make(map[string][]Artist)
+	// Créer une configuration client credentials pour l'authentification OAuth2
+	config := &clientcredentials.Config{
+		ClientID:     "216d0c4dde684593ba59c143326593aa",
+		ClientSecret: "8539b04a599946cbb4840c96058544f9",
+		TokenURL:     spotify.TokenURL,
+	}
+
+	// Obtenir un client authentifié avec la configuration client credentials
+	token, err := config.Token(context.Background())
+	if err != nil {
+		fmt.Println("Erreur d'obtention de jeton d'accès:", err)
+		os.Exit(1)
+	}
+	client := spotify.Authenticator{}.NewClient(token)
+
+	for _, dataArtist := range data.Artists {
+
+		// Rechercher l'artiste sur Spotify
+		results, err := client.Search(dataArtist.Name, spotify.SearchTypeArtist)
+		if err != nil {
+			fmt.Println("Erreur de recherche d'artiste:", err)
+			os.Exit(1)
+		}
+
+		// Vérifier si des artistes ont été trouvés
+		if len(results.Artists.Artists) == 0 {
+			fmt.Println("Aucun artiste trouvé pour", dataArtist.Name)
+			os.Exit(1)
+		}
+
+		// Sélectionner le premier artiste trouvé
+		artist := results.Artists.Artists[0]
+
+		// Récupérer les catégories de musique de l'artiste
+		fullartist, err := client.GetArtist(artist.ID)
+		if err != nil {
+			fmt.Println("Erreur de récupération des catégories de musique de l'artiste:", err)
+			os.Exit(1)
+		}
+		for _, genre := range fullartist.Genres {
+			data.Categories[genre] = append(data.Categories[genre], dataArtist)
+		}
+	}
+	for category, artists := range data.Categories {
+		if len(artists) < 2 {
+			delete(data.Categories, category)
+		} else {
+			fmt.Println(category, ":")
+			for _, artist := range artists {
+				fmt.Println(artist.Name)
+			}
+		}
+	}
 }

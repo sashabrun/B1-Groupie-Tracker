@@ -35,9 +35,14 @@
                 <p class="rating">Category : </p>
                 <p class="description">Date of creation : {{.CreationDate}} </p>
                 <p class="description">First Album : {{.FirstAlbum  }} </p>
-                <ul class="cast-list">
-                    <li>Members : {{.Members}}</li>
-                </ul>
+                {{if gt (len .Members) 1}}
+                    <ul class="cast-list">
+                        Members :
+                        {{range .Members}}
+                            <li>{{.}}</li>
+                        {{end}}
+                    </ul>
+                {{end}}
                 <div class="buttons">
                     <button>Listen</button>
                     <button>Add to my list</button>
@@ -52,7 +57,7 @@
                     <h3>Edgar 2 Petite pause café</h3>
                 </div>
                 <div class="artist">
-                    <img src="../static/Image/Groupie-Tracker-Toudoum.pngg" alt="artist 3">
+                    <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="artist 3">
                     <h3>Edgar 3 L'informatique c'est mon domaine</h3>
                 </div>
                 <div class="artist">

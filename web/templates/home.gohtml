@@ -19,6 +19,7 @@
             <li><a href="#">My List</a></li>
         </ul>
     </nav>
+
     <form class="search-form">
         <input type="text" placeholder="Artists, Albums, Years">
         <button type="submit"><img class="logo2" src="../static/Image/search-icon.png"></button>
@@ -26,7 +27,14 @@
 </header>
 
 <main>
-
+    {{range $category,$artists := .Categories}}
+        <div>
+            <h1 style="color: white">{{$category}}</h1>
+            {{range $artists}}
+                <img src="{{.Image}}" alt="">
+            {{end}}
+        </div>
+    {{end}}
 </main>
 
 <footer>
