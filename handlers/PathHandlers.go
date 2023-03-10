@@ -110,8 +110,9 @@ func CategoryFill() {
 			data.Categories[genre] = append(data.Categories[genre], dataArtist)
 		}
 	}
+
 	for category, artists := range data.Categories {
-		if len(artists) < 2 {
+		if len(artists) < 6 {
 			delete(data.Categories, category)
 		} else {
 			fmt.Println(category, ":")
