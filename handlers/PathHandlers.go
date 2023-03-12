@@ -12,11 +12,13 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Data struct {
 	Artists    []Artist
 	Categories map[string][]Artist
+	Favorites  []Artist
 }
 
 type Artist struct {
@@ -45,12 +47,36 @@ func FillData() {
 func LoadingHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "loading.html", data)
 }
+
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	if favCookie, err := r.Cookie("Fav"); err != nil {
+		data.Favorites = make([]Artist, 0)
+		favCookie = &http.Cookie{
+			Name:  "Fav",
+			Value: EncodeFavCookieValue(data.Favorites),
+			//The "Fav" cookie has to never expire
+			//to save client's stats in his navigator :
+			//their favorite artists.
+			Expires: time.Date(2037, 12, 01, 00, 00, 00, 00, time.UTC),
+		}
+		http.SetCookie(w, favCookie)
+	} else {
+		DecodeFavCookie(favCookie)
+		fmt.Println("Client's fav artists :")
+		for _, artist := range data.Favorites {
+			fmt.Println(artist.Name)
+		}
+	}
 	_ = tpl.ExecuteTemplate(w, "home.gohtml", data)
 }
+
 func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "artists.gohtml", data)
 }
+func FavHandler(w http.ResponseWriter, r *http.Request) {
+	_ = tpl.ExecuteTemplate(w, "favs.gohtml", data)
+}
+
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) != 3 {
@@ -59,13 +85,19 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	id, _ := strconv.Atoi(parts[2])
 	artist := data.Artists[id-1]
+	_ = r.ParseForm()
+	if strId := r.FormValue("addFav"); strId != "" {
+		Id, _ := strconv.Atoi(strId)
+		data.Favorites = append(data.Favorites, data.Artists[Id-1])
+	}
 	_ = tpl.ExecuteTemplate(w, "artist.gohtml", artist)
 }
+
 func ErrorHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "error.html", data)
 }
 
-func CategoryFill() {
+func ApiCategoryFill() {
 	data.Categories = make(map[string][]Artist)
 	// Créer une configuration client credentials pour l'authentification OAuth2
 	config := &clientcredentials.Config{
@@ -111,7 +143,7 @@ func CategoryFill() {
 		}
 	}
 	for category, artists := range data.Categories {
-		if len(artists) < 2 {
+		if len(artists) < 6 {
 			delete(data.Categories, category)
 		} else {
 			fmt.Println(category, ":")
@@ -119,5 +151,22 @@ func CategoryFill() {
 				fmt.Println(artist.Name)
 			}
 		}
+	}
+	storeCategories()
+}
+func storeCategories() {
+	CategoriesJSON, _ := json.Marshal(data.Categories)
+	if err := os.WriteFile("data/categories.json", CategoriesJSON, 0777); err != nil {
+		fmt.Println(err)
+	}
+}
+func GetCategories() {
+	data.Categories = make(map[string][]Artist)
+	file, _ := os.ReadFile("data/categories.json")
+	if len(file) != 0 {
+		_ = json.Unmarshal(file, &data.Categories)
+	} else {
+		ApiCategoryFill()
+		_ = json.Unmarshal(file, &data.Categories)
 	}
 }

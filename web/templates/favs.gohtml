@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color: black">
 <head>
-    <title>Artist - Groupie Tracker</title>
-    <link rel="stylesheet" href="../static/css/artist.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/artists.css">
+    <title>List of Artist - Groupie Tracker</title>
     <link rel="icon" href="../static/Image/N-logo.png">
 </head>
 <body>
@@ -19,57 +20,22 @@
         </ul>
     </nav>
     <form class="search-form">
-        <input type="text" placeholder="Artists, Albums, Years">
+        <label>
+            <input type="text" placeholder="Artists, Albums, Years">
+        </label>
         <button type="submit"><img class="logo2" src="../static/Image/search-icon.png"></button>
     </form>
 </header>
 
-<div class="container">
-    <div class="main-content">
-        <div class="artist-details">
-            <div class="artist-image">
-                <img src="{{.Image}}" alt="">
-            </div>
-            <div class="artist-info">
-                <h2>{{.Name        }}</h2>
-                <p class="rating">Category : </p>
-                <p class="description">Date of creation : {{.CreationDate}} </p>
-                <p class="description">First Album : {{.FirstAlbum  }} </p>
-                {{if gt (len .Members) 1}}
-                    <ul class="cast-list">
-                        Members :
-                        {{range .Members}}
-                            <li>{{.}}</li>
-                        {{end}}
-                    </ul>
-                {{end}}
-                <div class="buttons">
-                    <form action="/artist/{{.Id}}" name="" method="post">
-                        <button type="submit" name="listen" value="listen">Listen</button>
-                        <button type="submit" name="addFav" value="{{.Id}}">Add to my list</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="related-artist">
-            <h2>Similar artists</h2>
-            <div class="artist-grid">
-                <div class="artist">
-                    <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="artist 2">
-                    <h3>Edgar 2 Petite pause café</h3>
-                </div>
-                <div class="artist">
-                    <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="artist 3">
-                    <h3>Edgar 3 L'informatique c'est mon domaine</h3>
-                </div>
-                <div class="artist">
-                    <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="artist 4">
-                    <h3>Edgar 4 Voila !</h3>
-                </div>
-            </div>
-        </div>
+<main>
+    <div class="artists">
+        {{range .Favorites}}
+        <a href="/artist/{{.Id}}">
+            <img src="{{.Image}}" style="margin-bottom: 40px" width="300px" height="300px" alt="">
+        </a>
+        {{end}}
     </div>
-</div>
+</main>
 
 <footer>
     <ul class="social-icons">
