@@ -75,7 +75,9 @@
         <div>
             <h1 style="color: white">{{$category}}</h1>
             {{range $artists}}
-                <img src="{{.Image}}" alt="">
+                <a href="/artist/{{.Id}}">
+                    <img src="{{.Image}}" style="margin-bottom: 40px" width="300px" height="300px" alt="">
+                </a>
             {{end}}
         </div>
     {{end}}
