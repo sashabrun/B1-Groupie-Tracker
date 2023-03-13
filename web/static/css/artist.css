@@ -154,7 +154,7 @@ label {
     justify-content: center;
     align-items: center;
     margin-top: 0.2vh;
-    margin-left: 76.1vw;
+    margin-left: 75.1vw;
     background-color: red;
     border: none;
     color: white;
@@ -162,11 +162,6 @@ label {
     border-radius: 5px;
     cursor: pointer;
     height: 4vh;
-}
-
-main {
-    flex-grow: 1;
-    min-height: 100vh;
 }
 
 .container {
@@ -242,36 +237,6 @@ main {
 
 .buttons button:last-child {
     margin-right: 0;
-}
-
-.related-artist h2 {
-    color: white;
-}
-
-.artist-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-}
-
-.artist {
-    position: relative;
-}
-
-.artist img {
-    width: 100%;
-}
-
-.artist h3 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px;
-    background-color: rgba(73, 73, 73, 0.5);
-    color: #fff;
-    font-size: 18px;
-    text-align: center;
 }
 
 h2 {
