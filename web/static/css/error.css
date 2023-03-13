@@ -1,14 +1,14 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #141414;
+    background-color: #101010;
     color: #ffffff;
     font-family: Arial, sans-serif;
     text-align: center;
 }
 
 header {
-    background-color: #0e0e0e;
+    background-color: #1C1C1C;
     color: white;
     display: flex;
     flex-direction: row;
@@ -19,9 +19,10 @@ header {
 
 .logo img {
     padding-right: 2rem;
-    padding-left: 1rem;
-    padding-top: 1vh;
-    height: 27px;
+    padding-left: 1.3rem;
+    padding-top: 1.7vh;
+    padding-bottom: 0.7vh;
+    height: 30px;
 }
 
 .error-container {
