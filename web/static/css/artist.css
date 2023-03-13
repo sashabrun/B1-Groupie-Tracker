@@ -1,10 +1,8 @@
-* {
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
 background-color: black;
+    margin: 0;
+    padding: 0;
 }
 
 header {
@@ -325,7 +323,7 @@ footer p {
 }
 
 .corporation {
-    margin-left: 21.1vw;
+    margin-left: 10.3vw;
 }
 
 .social-icons {
