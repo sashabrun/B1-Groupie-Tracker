@@ -19,8 +19,11 @@ type Data struct {
 	Artists    []Artist
 	Categories map[string][]Artist
 	Favorites  []Artist
+	Input      input
 }
-
+type input struct {
+	text string
+}
 type Artist struct {
 	Id           int      `json:"id"`
 	Image        string   `json:"image"`
@@ -33,7 +36,9 @@ type Artist struct {
 	Relations    string   `json:"relations"`
 }
 
-var tpl = template.Must(template.ParseGlob("web/templates/*"))
+var tpl = template.Must(template.New("").Funcs(template.FuncMap{
+	"ArtistNameContainsInput": ArtistNameContainsInput,
+}).ParseGlob("web/templates/*"))
 var data Data
 
 func FillData() {
@@ -71,6 +76,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
+	_ = r.ParseForm()
+	if textInput := r.FormValue("research-text"); textInput != "" {
+		data.Input.text = textInput
+	}
 	_ = tpl.ExecuteTemplate(w, "artists.gohtml", data)
 }
 func FavHandler(w http.ResponseWriter, r *http.Request) {
