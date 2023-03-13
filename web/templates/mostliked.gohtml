@@ -2,8 +2,8 @@
 <html style="background-color: black">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/css/artists.css">
-    <title>List of Artist - Groupie Tracker</title>
+    <link rel="stylesheet" href="../static/css/mostliked.css">
+    <title>Most Liked - Groupie Tracker</title>
     <link rel="icon" href="../static/Image/N-logo.png">
 </head>
 <body>
@@ -69,14 +69,9 @@
         });
     </script>
 </header>
+
 <main>
-    <div class="artists">
-        {{range .Artists}}
-        <a href="/artist/{{.Id}}">
-            <img src="{{.Image}}" style="margin-bottom: 40px" width="300px" height="300px" alt="">
-        </a>
-        {{end}}
-    </div>
+
 </main>
 
 <footer>
