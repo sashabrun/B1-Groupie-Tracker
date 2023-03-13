@@ -12,11 +12,17 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Data struct {
 	Artists    []Artist
 	Categories map[string][]Artist
+	Input      input
+	Fav        []Artist
+}
+type input struct {
+	text string
 }
 
 type Artist struct {
@@ -29,9 +35,12 @@ type Artist struct {
 	Locations    string   `json:"locations"`
 	ConcertDates string   `json:"concertDates"`
 	Relations    string   `json:"relations"`
+	Isliked      bool     `json:"isliked"`
 }
 
-var tpl = template.Must(template.ParseGlob("web/templates/*"))
+var tpl = template.Must(template.New("").Funcs(template.FuncMap{
+	"ArtistNameContainsInput": ArtistNameContainsInput,
+}).ParseGlob("web/templates/*"))
 var data Data
 
 func FillData() {
@@ -45,27 +54,69 @@ func FillData() {
 func LoadingHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "loading.html", data)
 }
+
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	if favCookie, err := r.Cookie("Fav"); err == nil {
+		data.Artists = DecodeFavCookie(favCookie)
+		fmt.Println("Client's fav artists :")
+		for _, artist := range data.Artists {
+			if artist.Isliked {
+				fmt.Println(artist.Name)
+			}
+		}
+	} else {
+		fmt.Println("No \"Fav\" cookie yet")
+	}
 	_ = tpl.ExecuteTemplate(w, "home.gohtml", data)
 }
+
 func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
+	data.Input.text = ""
+	_ = r.ParseForm()
+	if textInput := r.FormValue("research-text"); textInput != "" {
+		data.Input.text = textInput
+	}
 	_ = tpl.ExecuteTemplate(w, "artists.gohtml", data)
 }
+func FavHandler(w http.ResponseWriter, r *http.Request) {
+	_ = tpl.ExecuteTemplate(w, "favs.gohtml", data)
+}
+
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) != 3 {
 		http.NotFound(w, r)
-		return
 	}
 	id, _ := strconv.Atoi(parts[2])
-	artist := data.Artists[id-1]
-	_ = tpl.ExecuteTemplate(w, "artist.gohtml", artist)
+	id--
+	_ = r.ParseForm()
+	if r.FormValue("addFav") != "" {
+		data.Artists[id].Isliked = !data.Artists[id].Isliked
+		if data.Artists[id].Isliked {
+			removeFav(id)
+			fmt.Println(data.Artists[id].Name, "Is no more in ur list")
+		} else {
+			data.Fav = append(data.Fav, data.Artists[id])
+			fmt.Println(data.Artists[id].Name, "Is now in ur list")
+		}
+		favCookie := &http.Cookie{
+			Name:  "Fav",
+			Value: EncodeFavCookieValue(data.Fav),
+			//The "Fav" cookie has to never expire
+			//to save client's stats in his navigator :
+			//their favorite artists.
+			Expires: time.Date(2023, 12, 01, 00, 00, 00, 00, time.UTC),
+		}
+		http.SetCookie(w, favCookie)
+	}
+	_ = tpl.ExecuteTemplate(w, "artist.gohtml", data.Artists[id])
 }
+
 func ErrorHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "error.html", data)
 }
 
-func CategoryFill() {
+func ApiCategoryFill() {
 	data.Categories = make(map[string][]Artist)
 	// Créer une configuration client credentials pour l'authentification OAuth2
 	config := &clientcredentials.Config{
@@ -111,7 +162,7 @@ func CategoryFill() {
 		}
 	}
 	for category, artists := range data.Categories {
-		if len(artists) < 2 {
+		if len(artists) < 6 {
 			delete(data.Categories, category)
 		} else {
 			fmt.Println(category, ":")
@@ -119,5 +170,22 @@ func CategoryFill() {
 				fmt.Println(artist.Name)
 			}
 		}
+	}
+	storeCategories()
+}
+func storeCategories() {
+	CategoriesJSON, _ := json.Marshal(data.Categories)
+	if err := os.WriteFile("data/categories.json", CategoriesJSON, 0777); err != nil {
+		fmt.Println(err)
+	}
+}
+func GetCategories() {
+	data.Categories = make(map[string][]Artist)
+	file, _ := os.ReadFile("data/categories.json")
+	if len(file) != 0 {
+		_ = json.Unmarshal(file, &data.Categories)
+	} else {
+		ApiCategoryFill()
+		_ = json.Unmarshal(file, &data.Categories)
 	}
 }
