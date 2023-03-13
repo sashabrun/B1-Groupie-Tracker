@@ -1,11 +1,8 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
 background-color: black;
+    margin: 0;
+    padding: 0;
 }
 
 header {
@@ -78,6 +75,93 @@ nav a:hover {
 .logo2{
     height: 2vh;
     width: 1vw;
+}
+
+.toWrap {
+    font-family: "Arial";
+    position: absolute;
+    margin-left: 51vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.TextPad {
+    margin-bottom: 2vh;
+}
+
+#CarrierYears {
+    color: white;
+}
+
+#CarrierYears2 {
+    font-family: "Arial";
+    color: white;
+    margin-top: 0vh;
+}
+
+input[type=range]{
+    overflow: hidden;
+    -webkit-appearance: none;
+    border-radius: 50px;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 5px;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #910000;
+    margin-top: -4px;
+    box-shadow: -80px 0 0 80px #e50914;
+    cursor: ew-resize;
+}
+.toWrap2 {
+    font-family: "Arial";
+    position: absolute;
+    margin-top: 6vh;
+    margin-left: 61.75vw;
+    display: flex;
+    gap: -1vw;
+}
+
+#nMembers {
+    font-family: "Arial";
+    position: absolute;
+    margin-top: -1vh;
+    margin-left: 64.75vw;
+    display: flex;
+}
+
+label {
+    cursor: default;
+    color: white;
+    margin-top: -1.5vh;
+}
+
+.ParentCredit {
+    font-family: "Arial";
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.2vh;
+    margin-left: 75.1vw;
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 4vh;
 }
 
 .container {
@@ -155,36 +239,6 @@ nav a:hover {
     margin-right: 0;
 }
 
-.related-artist h2 {
-    color: white;
-}
-
-.artist-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-}
-
-.artist {
-    position: relative;
-}
-
-.artist img {
-    width: 100%;
-}
-
-.artist h3 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px;
-    background-color: rgba(73, 73, 73, 0.5);
-    color: #fff;
-    font-size: 18px;
-    text-align: center;
-}
-
 h2 {
     font-size: 32px;
     margin-bottom: 20px;
@@ -234,7 +288,7 @@ footer p {
 }
 
 .corporation {
-    margin-left: 21.1vw;
+    margin-left: 10.3vw;
 }
 
 .social-icons {

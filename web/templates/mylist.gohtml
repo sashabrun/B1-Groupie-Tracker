@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html style="background-color: black">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/mylist.css">
+    <title>My List - Groupie Tracker</title>
+    <link rel="icon" href="../static/Image/N-logo.png">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="Groupie Logo">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/artists">Artists</a></li>
+            <li><a href="/mostliked">The Most Liked</a></li>
+            <li><a href="/mylist">My List</a></li>
+        </ul>
+    </nav>
+    <div class="toWrap">
+        <p id="CarrierYears">Carrier Starting Years</p>
+        <label>
+            <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900" max="2023" value="1999" name="range">
+        </label>
+        <p id="CarrierYears2"></p>
+    </div>
+    <p id="nMembers">N° Members : </p>
+    <div class="toWrap2">
+        <label>
+            1
+            <input type="checkbox" id="1" name="1" value="false">
+        </label>
+        <label>
+            2
+            <input type="checkbox" id="2" name="2" value="false">
+        </label>
+        <label>
+            3
+            <input type="checkbox" id="3" name="3" value="false">
+        </label>
+        <label>
+            4
+            <input type="checkbox" id="4" name="4" value="false">
+        </label>
+        <label>
+            5
+            <input type="checkbox" id="5" name="5" value="false">
+        </label>
+        <label>
+            6
+            <input type="checkbox" id="6" name="6" value="false">
+        </label>
+    </div>
+    <button class="ParentCredit">Submit</button>
+    <form class="search-form">
+        <input type="text" placeholder="Artists, Albums, Years">
+        <button type="submit"><img class="logo2" src="../static/Image/search-icon.png"></button>
+    </form>
+    <script>
+        const range = document.getElementById("r");
+        const carrierYears2 = document.getElementById("CarrierYears2");
+
+        range.addEventListener("input", () => {
+            const year = parseInt(range.value);
+            carrierYears2.innerHTML = year;
+            carrierYears2.setAttribute("data-year", year);
+        });
+    </script>
+</header>
+
+<main>
+
+</main>
+
+<footer>
+    <ul class="social-icons">
+        <li><a href="https://www.facebook.com/groups/368619363542041/?locale=fr_FR"><img class="facebook" src="../static/Image/facebook-icon.png"></a></li>
+        <li><a href="https://www.instagram.com/netflixfr/"><img class="instagram" src="../static/Image/instagram-icon.png"></a></li>
+        <li><a href="https://twitter.com/NetflixFR"><img class="twitter" src="../static/Image/twitter-icon.png"></a></li>
+        <li><a href="https://www.youtube.com/netflixfrance"><img class="youtube" src="../static/Image/youtube-icon.png"></a></li>
+    </ul>
+    <div class="container">
+        <div class="button-page">
+            <div class="button-page1">
+                <ul>
+                    <li><a href="https://www.netflix.com/browse/audio-description">Audio and Subtitles</a></li>
+                    <li><a href="https://help.netflix.com/fr/">Media Center</a></li>
+                    <li><a href="https://help.netflix.com/legal/privacy">Privacy</a></li>
+                    <li><a href="https://help.netflix.com/fr/contactus">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="button-page2">
+                <ul>
+                    <li><a href="https://www.netflix.com/browse/audio-description">Audio Description</a></li>
+                    <li><a href="https://ir.netflix.net/ir-overview/profile/default.aspx">Investor Relations</a></li>
+                    <li><a href="https://help.netflix.com/legal/notices">Legal Notices</a></li>
+                </ul>
+            </div>
+            <div class="button-page3">
+                <ul>
+                    <li><a href="https://help.netflix.com/fr/">Help Center</a></li>
+                    <li><a href="https://jobs.netflix.com/">Jobs</a></li>
+                    <li><a href="https://help.netflix.com/legal/privacy#cookies">Cookie Preferences</a></li>
+                </ul>
+            </div>
+            <div class="button-page4">
+                <ul>
+                    <li><a href="https://www.netflix.com/fr/redeem">Gift Cards</a></li>
+                    <li><a href="https://help.netflix.com/legal/termsofuse">Terms of Use</a></li>
+                    <li><a href="https://help.netflix.com/legal/corpinfo">Corporate Information</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="corporation">
+            <p>&copy; 2023 Groupie Tracker, Inc.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
