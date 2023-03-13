@@ -1,8 +1,11 @@
+* {
+    padding: 0;
+}
+
 
 body {
 background-color: black;
     margin: 0;
-    padding: 0;
 }
 
 header {
@@ -20,6 +23,10 @@ header {
     padding-left: 1rem;
     padding-top: 1vh;
     height: 30px;
+}
+
+nav {
+    margin-right: 57vw;
 }
 
 nav ul {
@@ -76,94 +83,6 @@ nav a:hover {
     height: 2vh;
     width: 1vw;
 }
-
-.toWrap {
-    font-family: "Arial";
-    position: absolute;
-    margin-left: 51vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.TextPad {
-    margin-bottom: 2vh;
-}
-
-#CarrierYears {
-    color: white;
-}
-
-#CarrierYears2 {
-    font-family: "Arial";
-    color: white;
-    margin-top: 0vh;
-}
-
-input[type=range]{
-    overflow: hidden;
-    -webkit-appearance: none;
-    border-radius: 50px;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-    width: 300px;
-    height: 5px;
-    border: none;
-    border-radius: 3px;
-}
-
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: none;
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background: #910000;
-    margin-top: -4px;
-    box-shadow: -80px 0 0 80px #e50914;
-    cursor: ew-resize;
-}
-.toWrap2 {
-    font-family: "Arial";
-    position: absolute;
-    margin-top: 6vh;
-    margin-left: 61.75vw;
-    display: flex;
-    gap: -1vw;
-}
-
-#nMembers {
-    font-family: "Arial";
-    position: absolute;
-    margin-top: -1vh;
-    margin-left: 64.75vw;
-    display: flex;
-}
-
-label {
-    cursor: default;
-    color: white;
-    margin-top: -1.5vh;
-}
-
-.ParentCredit {
-    font-family: "Arial";
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0.2vh;
-    margin-left: 75.1vw;
-    background-color: red;
-    border: none;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 4vh;
-}
-
 .container {
     max-width: 1200px;
     margin: 0 auto;

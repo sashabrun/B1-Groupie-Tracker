@@ -10,63 +10,16 @@
     <div class="logo">
         <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="Groupie Logo">
     </div>
-    <nav>
-        <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/artists">Artists</a></li>
-            <li><a href="/mostliked">The Most Liked</a></li>
-            <li><a href="/mylist">My List</a></li>
-        </ul>
-    </nav>
-    <div class="toWrap">
-        <p id="CarrierYears">Carrier Starting Years</p>
-        <label>
-            <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900" max="2023" value="1999" name="range">
-        </label>
-        <p id="CarrierYears2"></p>
+    <div class="buttonPage">
+        <nav>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/artists">Artists</a></li>
+                <li><a href="/mostliked">The Most Liked</a></li>
+                <li><a href="/mylist">My List</a></li>
+            </ul>
+        </nav>
     </div>
-    <p id="nMembers">N° Members : </p>
-    <div class="toWrap2">
-        <label>
-            1
-            <input type="checkbox" id="1" name="1" value="false">
-        </label>
-        <label>
-            2
-            <input type="checkbox" id="2" name="2" value="false">
-        </label>
-        <label>
-            3
-            <input type="checkbox" id="3" name="3" value="false">
-        </label>
-        <label>
-            4
-            <input type="checkbox" id="4" name="4" value="false">
-        </label>
-        <label>
-            5
-            <input type="checkbox" id="5" name="5" value="false">
-        </label>
-        <label>
-            6
-            <input type="checkbox" id="6" name="6" value="false">
-        </label>
-    </div>
-    <button class="ParentCredit">Submit</button>
-    <form class="search-form">
-        <input type="text" placeholder="Artists, Albums, Years">
-        <button type="submit"><img class="logo2" src="../static/Image/search-icon.png"></button>
-    </form>
-    <script>
-        const range = document.getElementById("r");
-        const carrierYears2 = document.getElementById("CarrierYears2");
-
-        range.addEventListener("input", () => {
-            const year = parseInt(range.value);
-            carrierYears2.innerHTML = year;
-            carrierYears2.setAttribute("data-year", year);
-        });
-    </script>
 </header>
 <main>
 <div class="container">
