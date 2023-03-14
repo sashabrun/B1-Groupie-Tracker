@@ -61,6 +61,12 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	artist := data.Artists[id-1]
 	_ = tpl.ExecuteTemplate(w, "artist.gohtml", artist)
 }
+func MostLikedHandler(w http.ResponseWriter, r *http.Request) {
+	_ = tpl.ExecuteTemplate(w, "mostliked.gohtml", data)
+}
+func MyListHandler(w http.ResponseWriter, r *http.Request) {
+	_ = tpl.ExecuteTemplate(w, "mylist.gohtml", data)
+}
 func ErrorHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "error.html", data)
 }
@@ -110,8 +116,9 @@ func CategoryFill() {
 			data.Categories[genre] = append(data.Categories[genre], dataArtist)
 		}
 	}
+
 	for category, artists := range data.Categories {
-		if len(artists) < 2 {
+		if len(artists) < 6 {
 			delete(data.Categories, category)
 		} else {
 			fmt.Println(category, ":")
