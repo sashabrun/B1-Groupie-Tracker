@@ -2,7 +2,9 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -15,6 +17,7 @@ func ArtistNameContainsInput(id int) bool {
 	}
 	return false
 }
+
 func removeFav(idToDelete int) {
 	for i, favIndex := range data.FavIndexs {
 		if favIndex == idToDelete {
@@ -33,15 +36,44 @@ func FillData() {
 	}
 	defer apiRes.Body.Close()
 	FillLocation()
+	GetLikes()
 }
+
 func FillLocation() {
-	for _, artist := range data.Artists {
+	for id, artist := range data.Artists {
 		relationsResp, _ := http.Get(artist.RelationsLink)
-		_ = json.NewDecoder(relationsResp.Body).Decode(&artist.Relations)
+		_ = json.NewDecoder(relationsResp.Body).Decode(&data.Artists[id].Relations)
 		defer relationsResp.Body.Close()
 	}
 }
 
-/* func DisplayLocationLink(artistId int) string {
-	return "https://www.google.com/maps/place/" + strconv.FormatFloat(lat, 'f', 9, 64) + "," + strconv.FormatFloat(lng, 'f', 9, 64)
-}*/
+type GeocodeResponse struct {
+	Results []struct {
+		Geometry struct {
+			Location struct {
+				Lat float64 `json:"lat"`
+				Lng float64 `json:"lng"`
+			} `json:"location"`
+		} `json:"geometry"`
+	} `json:"results"`
+}
+
+func DisplayLocationLink(cityName string) string {
+	return "https://www.google.com/maps/search/" + cityName
+}
+func GetLikes() {
+	file, _ := os.ReadFile("data/Likes.json")
+	if len(file) != 0 {
+		_ = json.Unmarshal(file, &data.Likes)
+	} else {
+		data.Likes = make([]int, 52)
+		SaveLikes()
+	}
+}
+
+func SaveLikes() {
+	LikesJSON, _ := json.Marshal(data.Likes)
+	if err := os.WriteFile("data/Likes.json", LikesJSON, 0777); err != nil {
+		fmt.Println(err)
+	}
+}

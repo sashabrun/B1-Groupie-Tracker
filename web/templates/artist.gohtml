@@ -32,6 +32,11 @@
             <div class="artist-info">
                 <h2>{{.Name        }}</h2>
                 <p class="rating">Category : </p>
+                <ul>
+                    {{range .Category}}
+                    <li>{{.}}</li>
+                    {{end}}
+                </ul>
                 <p class="description">Date of creation : {{.CreationDate}} </p>
                 <p class="description">First Album : {{.FirstAlbum  }} </p>
                 {{if gt (len .Members) 1}}
@@ -51,6 +56,31 @@
                             <button type="submit" name="addFav" value="{{.Id}}">Add to my list</button>
                         {{end}}
                     </form>
+                </div>
+                {{range $city,$dates := .Relations.DatesLocations}}
+                    <a href="{{DisplayLocationLink $city}}" style="text-decoration: none" ><h2>{{$city}}</h2></a>
+                        <ul>
+                            {{range $dates}}
+                                <li>{{.}}</li>
+                            {{end}}
+                        </ul>
+                {{end}}
+            </div>
+        </div>
+        <div class="related-artist">
+            <h2>Similar artists</h2>
+            <div class="artist-grid">
+                <div class="artist">
+                    <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="artist 2">
+                    <h3>Edgar 2 Petite pause café</h3>
+                </div>
+                <div class="artist">
+                    <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="artist 3">
+                    <h3>Edgar 3 L'informatique c'est mon domaine</h3>
+                </div>
+                <div class="artist">
+                    <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="artist 4">
+                    <h3>Edgar 4 Voila !</h3>
                 </div>
             </div>
         </div>
