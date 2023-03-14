@@ -54,9 +54,18 @@
         </label>
     </div>
     <button class="ParentCredit">Submit</button>
-    <form class="search-form">
-        <input type="text" placeholder="Artists, Albums, Years">
-        <button type="submit"><img class="logo2" src="../static/Image/search-icon.png"></button>
+    <form action="/artists" name="osef" class="search-form">
+        <label>
+            <input type="text" autocomplete="off" name="research-text" list="artists" placeholder="Artists, Albums, Years">
+        </label>
+        <datalist id="artists">
+            {{range .Artists}}
+                <option>
+                    {{.Name}}
+                </option>
+            {{end}}
+        </datalist>
+        <button type="submit"><img class="logo2" src="../static/Image/search-icon.png" alt=""></button>
     </form>
     <script>
         const range = document.getElementById("r");
@@ -71,7 +80,15 @@
 </header>
 
 <main>
-
+    <div class="artists">
+        {{range .Artists}}
+            {{if (.Isliked)}}
+                <a href="/artist/{{.Id}}">
+                    <img src="{{.Image}}" style="margin-bottom: 40px" width="300px" height="300px" alt="">
+                </a>
+            {{end}}
+        {{end}}
+    </div>
 </main>
 
 <footer>

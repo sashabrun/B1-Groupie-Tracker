@@ -2,10 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
 	"net/http"
-	"net/url"
 	"strconv"
 	"strings"
 )
@@ -18,7 +15,6 @@ func ArtistNameContainsInput(id int) bool {
 	}
 	return false
 }
-
 func removeFav(idToDelete int) {
 	for i, favIndex := range data.FavIndexs {
 		if favIndex == idToDelete {
@@ -29,3 +25,23 @@ func removeFav(idToDelete int) {
 func RemoveIndex(s []int, index int) []int {
 	return append(s[:index], s[index+1:]...)
 }
+
+func FillData() {
+	apiRes, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	if err == nil {
+		_ = json.NewDecoder(apiRes.Body).Decode(&data.Artists)
+	}
+	defer apiRes.Body.Close()
+	FillLocation()
+}
+func FillLocation() {
+	for _, artist := range data.Artists {
+		relationsResp, _ := http.Get(artist.RelationsLink)
+		_ = json.NewDecoder(relationsResp.Body).Decode(&artist.Relations)
+		defer relationsResp.Body.Close()
+	}
+}
+
+/* func DisplayLocationLink(artistId int) string {
+	return "https://www.google.com/maps/place/" + strconv.FormatFloat(lat, 'f', 9, 64) + "," + strconv.FormatFloat(lng, 'f', 9, 64)
+}*/

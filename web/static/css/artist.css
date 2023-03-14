@@ -91,34 +91,6 @@ nav a:hover {
     flex-wrap: wrap;
 }
 
-.artist-details {
-    display: flex;
-    margin-bottom: 40px;
-}
-
-.artist-image {
-    flex: 1;
-    margin-right: 40px;
-    height: 36.5vh;
-    width: 36.5vw;
-}
-
-.artist-image img {
-    height: 40vh;
-    width: 20vw;
-}
-
-.artist-info {
-    flex: 2;
-    color: white;
-}
-
-.artist-info h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: white;
-}
-
 .rating {
     color: white;
     font-size: 24px;

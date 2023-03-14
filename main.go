@@ -14,13 +14,13 @@ func main() {
 	http.HandleFunc("/loading", handlers.LoadingHandler)
 	http.HandleFunc("/home", handlers.HomeHandler)
 	http.HandleFunc("/artists", handlers.ArtistsHandler)
-	http.HandleFunc("/fav-artists", handlers.FavHandler)
+	http.HandleFunc("/mylist", handlers.MyListHandler)
+	http.HandleFunc("/mostliked", handlers.MostLikedHandler)
 	http.HandleFunc("/artist/", handlers.ArtistHandler)
 	http.HandleFunc("/", handlers.ErrorHandler)
 
 	handlers.FillData()
 	handlers.GetCategories()
-	fmt.Println(handlers.DisplayLocationLink(24))
 
 	fmt.Println("Listening on http://localhost" + PORT + "/loading")
 	if err := http.ListenAndServe(PORT, nil); err != nil {

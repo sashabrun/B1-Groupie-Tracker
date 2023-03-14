@@ -55,7 +55,7 @@ nav a:hover {
 .search-form input[type="text"] {
     border: none;
     padding: 7.5px;
-    margin-right: 10px;
+    margin-top: 1.5vh;
     border-radius: 5px;
     font-size: 16px;
 }
@@ -65,6 +65,8 @@ nav a:hover {
     border: none;
     color: white;
     padding: 10px;
+    margin-right: 1.09vw;
+    margin-left: 0.65vw;
     border-radius: 5px;
     cursor: pointer;
     height: 4.5vh;

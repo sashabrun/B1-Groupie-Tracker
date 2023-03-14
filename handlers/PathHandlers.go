@@ -73,10 +73,6 @@ func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_ = tpl.ExecuteTemplate(w, "artists.gohtml", data)
 }
-func FavHandler(w http.ResponseWriter, r *http.Request) {
-	_ = tpl.ExecuteTemplate(w, "favs.gohtml", data)
-}
-
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) != 3 {
