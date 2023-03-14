@@ -19,6 +19,7 @@ type Data struct {
 	Categories map[string][]Artist
 	Input      input
 	FavIndexs  []int
+	Likes      []int
 }
 type input struct {
 	text string
@@ -28,8 +29,9 @@ type Relations struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 type Artist struct {
-	Id            int      `json:"id"`
-	Image         string   `json:"image"`
+	Id            int    `json:"id"`
+	Image         string `json:"image"`
+	Category      []string
 	Name          string   `json:"name"`
 	Members       []string `json:"members"`
 	CreationDate  int      `json:"creationDate"`
@@ -43,6 +45,7 @@ type Artist struct {
 
 var tpl = template.Must(template.New("").Funcs(template.FuncMap{
 	"ArtistNameContainsInput": ArtistNameContainsInput,
+	"DisplayLocationLink":     DisplayLocationLink,
 }).ParseGlob("web/templates/*"))
 var data Data
 
@@ -88,9 +91,15 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		_ = r.ParseForm()
 		if r.FormValue("addFav") != "" {
 			if data.Artists[id].Isliked {
+				data.Likes[id]--
+				fmt.Println(data.Artists[id].Name, "has now", data.Likes[id], "likes")
+				SaveLikes()
 				removeFav(id)
 				fmt.Println(data.Artists[id].Name, "Is no more in ur list")
 			} else {
+				data.Likes[id]++
+				fmt.Println(data.Artists[id].Name, "has now", data.Likes[id], "likes")
+				SaveLikes()
 				data.FavIndexs = append(data.FavIndexs, id)
 				fmt.Println(data.Artists[id].Name, "Is now in ur list")
 			}
@@ -173,6 +182,11 @@ func GetCategories() {
 	file, _ := os.ReadFile("data/categories.json")
 	if len(file) != 0 {
 		_ = json.Unmarshal(file, &data.Categories)
+		for style, artists := range data.Categories {
+			for _, artist := range artists {
+				data.Artists[artist.Id-1].Category = append(data.Artists[artist.Id-1].Category, style)
+			}
+		}
 	} else {
 		ApiCategoryFill()
 		_ = json.Unmarshal(file, &data.Categories)

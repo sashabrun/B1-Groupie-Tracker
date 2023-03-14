@@ -3,9 +3,8 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
-	"net/url"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -37,12 +36,13 @@ func FillData() {
 	}
 	defer apiRes.Body.Close()
 	FillLocation()
+	GetLikes()
 }
 
 func FillLocation() {
-	for _, artist := range data.Artists {
+	for id, artist := range data.Artists {
 		relationsResp, _ := http.Get(artist.RelationsLink)
-		_ = json.NewDecoder(relationsResp.Body).Decode(&artist.Relations)
+		_ = json.NewDecoder(relationsResp.Body).Decode(&data.Artists[id].Relations)
 		defer relationsResp.Body.Close()
 	}
 }
@@ -58,40 +58,22 @@ type GeocodeResponse struct {
 	} `json:"results"`
 }
 
-func DisplayLocationLink(artistId int) string {
-	apiKey := "AIzaSyBop5uo9b8uRNxiLd8WbK0ep0yS9ltu7K8"
-	address := "Toulouse"
-	urlEncodedAddress := url.QueryEscape(address)
-
-	url := fmt.Sprintf("https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s", urlEncodedAddress, apiKey)
-
-	resp, err := http.Get(url)
-	if err != nil {
-		log.Fatalf("HTTP request failed: %v", err)
+func DisplayLocationLink(cityName string) string {
+	return "https://www.google.com/maps/search/" + cityName
+}
+func GetLikes() {
+	file, _ := os.ReadFile("data/Likes.json")
+	if len(file) != 0 {
+		_ = json.Unmarshal(file, &data.Likes)
+	} else {
+		data.Likes = make([]int, 52)
+		SaveLikes()
 	}
-	defer resp.Body.Close()
+}
 
-	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("HTTP request failed with status %s", resp.Status)
+func SaveLikes() {
+	LikesJSON, _ := json.Marshal(data.Likes)
+	if err := os.WriteFile("data/Likes.json", LikesJSON, 0777); err != nil {
+		fmt.Println(err)
 	}
-
-	var geocodeResponse GeocodeResponse
-	err = json.NewDecoder(resp.Body).Decode(&geocodeResponse)
-	if err != nil {
-		log.Fatalf("JSON decoding failed: %v", err)
-	}
-
-	if resp.Status != "OK" {
-		fmt.Println("Geocoding API returned status %s", resp.Status)
-	}
-
-	if len(geocodeResponse.Results) == 0 {
-		log.Fatalf("No geocode results found")
-	}
-
-	lat := geocodeResponse.Results[0].Geometry.Location.Lat
-	lng := geocodeResponse.Results[0].Geometry.Location.Lng
-	//fmt.Println("Latitude: %f, Longitude: %f", lat, lng)
-
-	return "https://www.google.com/maps/place/" + strconv.FormatFloat(lat, 'f', 9, 64) + "," + strconv.FormatFloat(lng, 'f', 9, 64)
 }

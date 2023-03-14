@@ -3,7 +3,6 @@ package handlers
 import (
 	"encoding/base64"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"time"
 )
@@ -20,7 +19,6 @@ func EncodeFavCookieValue() string {
 	FavJSON, _ := json.Marshal(data.FavIndexs)
 	//Encoding the json string as a b64 URL before sending it to the cookie to prevent unhandeled characters json uses
 	valueToSend := base64.URLEncoding.EncodeToString(FavJSON)
-	fmt.Println(valueToSend)
 	return valueToSend
 }
 
