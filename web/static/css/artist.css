@@ -5,7 +5,7 @@
 }
 
 body {
-background-color: black;
+background-color: #101010;
 }
 
 header {
@@ -80,6 +80,14 @@ nav a:hover {
     width: 1vw;
 }
 
+.artist-info {
+    color: white;
+}
+
+.rating {
+    color: white;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -125,41 +133,6 @@ nav a:hover {
 
 .buttons button:last-child {
     margin-right: 0;
-}
-
-.related-artist h2 {
-    color: white;
-}
-
-.artist-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-}
-
-.artist {
-    position: relative;
-}
-
-.artist img {
-    width: 100%;
-}
-
-.artist h3 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px;
-    background-color: rgba(73, 73, 73, 0.5);
-    color: #fff;
-    font-size: 18px;
-    text-align: center;
-}
-
-h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
 }
 
 footer {

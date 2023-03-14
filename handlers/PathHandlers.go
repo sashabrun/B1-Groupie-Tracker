@@ -117,9 +117,6 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_ = tpl.ExecuteTemplate(w, "artist.gohtml", data.Artists[id])
 }
-func MostLikedHandler(w http.ResponseWriter, r *http.Request) {
-	_ = tpl.ExecuteTemplate(w, "mostliked.gohtml", data)
-}
 func MyListHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "mylist.gohtml", data)
 }
