@@ -1,11 +1,11 @@
 * {
+    margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-
 body {
-background-color: #101010;
-    margin: 0;
+background-color: black;
 }
 
 header {
@@ -19,14 +19,10 @@ header {
 }
 
 .logo img {
-    padding-right: 1rem;
+    padding-right: 2rem;
     padding-left: 1rem;
     padding-top: 1vh;
     height: 30px;
-}
-
-nav {
-    margin-right: 57.3vw;
 }
 
 nav ul {
@@ -83,6 +79,7 @@ nav a:hover {
     height: 2vh;
     width: 1vw;
 }
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -158,6 +155,36 @@ nav a:hover {
     margin-right: 0;
 }
 
+.related-artist h2 {
+    color: white;
+}
+
+.artist-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.artist {
+    position: relative;
+}
+
+.artist img {
+    width: 100%;
+}
+
+.artist h3 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba(73, 73, 73, 0.5);
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+}
+
 h2 {
     font-size: 32px;
     margin-bottom: 20px;
@@ -207,7 +234,7 @@ footer p {
 }
 
 .corporation {
-    margin-left: 10.3vw;
+    margin-left: 21.1vw;
 }
 
 .social-icons {

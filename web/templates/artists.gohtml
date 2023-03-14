@@ -32,7 +32,9 @@
             1
             <input type="checkbox" id="1" name="1" value="false">
         </label>
+    <form action="/artists" name="osef" class="search-form">
         <label>
+            <input type="text" autocomplete="off" name="research-text" list="artists" placeholder="Artists, Albums, Years">
             2
             <input type="checkbox" id="2" name="2" value="false">
         </label>
@@ -44,6 +46,14 @@
             4
             <input type="checkbox" id="4" name="4" value="false">
         </label>
+        <datalist id="artists">
+            {{range .Artists}}
+            <option>
+                    {{.Name}}
+            </option>
+            {{end}}
+        </datalist>
+        <button type="submit"><img class="logo2" src="../static/Image/search-icon.png" alt=""></button>
         <label>
             5
             <input type="checkbox" id="5" name="5" value="false">
@@ -69,12 +79,15 @@
         });
     </script>
 </header>
+
 <main>
     <div class="artists">
         {{range .Artists}}
-        <a href="/artist/{{.Id}}">
-            <img src="{{.Image}}" style="margin-bottom: 40px" width="300px" height="300px" alt="">
-        </a>
+            {{if (ArtistNameContainsInput .Id)}}
+                <a href="/artist/{{.Id}}">
+                    <img src="{{.Image}}" style="margin-bottom: 40px" width="300px" height="300px" alt="">
+                </a>
+            {{end}}
         {{end}}
     </div>
 </main>
