@@ -12,30 +12,33 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"time"
 )
 
 type Data struct {
 	Artists    []Artist
 	Categories map[string][]Artist
 	Input      input
-	Fav        []Artist
+	FavIndexs  []int
 }
 type input struct {
 	text string
 }
-
+type Relations struct {
+	Id             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"datesLocations"`
+}
 type Artist struct {
-	Id           int      `json:"id"`
-	Image        string   `json:"image"`
-	Name         string   `json:"name"`
-	Members      []string `json:"members"`
-	CreationDate int      `json:"creationDate"`
-	FirstAlbum   string   `json:"firstAlbum"`
-	Locations    string   `json:"locations"`
-	ConcertDates string   `json:"concertDates"`
-	Relations    string   `json:"relations"`
-	Isliked      bool     `json:"isliked"`
+	Id            int      `json:"id"`
+	Image         string   `json:"image"`
+	Name          string   `json:"name"`
+	Members       []string `json:"members"`
+	CreationDate  int      `json:"creationDate"`
+	FirstAlbum    string   `json:"firstAlbum"`
+	Locations     string   `json:"locations"`
+	ConcertDates  string   `json:"concertDates"`
+	RelationsLink string   `json:"relations"`
+	Relations     Relations
+	Isliked       bool `json:"isliked"`
 }
 
 var tpl = template.Must(template.New("").Funcs(template.FuncMap{
@@ -43,21 +46,13 @@ var tpl = template.Must(template.New("").Funcs(template.FuncMap{
 }).ParseGlob("web/templates/*"))
 var data Data
 
-func FillData() {
-	apiRes, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
-	if err == nil {
-		_ = json.NewDecoder(apiRes.Body).Decode(&data.Artists)
-	}
-	defer apiRes.Body.Close()
-}
-
 func LoadingHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "loading.html", data)
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if favCookie, err := r.Cookie("Fav"); err == nil {
-		data.Artists = DecodeFavCookie(favCookie)
+		DecodeFavCookie(favCookie)
 		fmt.Println("Client's fav artists :")
 		for _, artist := range data.Artists {
 			if artist.Isliked {
@@ -89,25 +84,19 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	id, _ := strconv.Atoi(parts[2])
 	id--
-	_ = r.ParseForm()
-	if r.FormValue("addFav") != "" {
-		data.Artists[id].Isliked = !data.Artists[id].Isliked
-		if data.Artists[id].Isliked {
-			removeFav(id)
-			fmt.Println(data.Artists[id].Name, "Is no more in ur list")
-		} else {
-			data.Fav = append(data.Fav, data.Artists[id])
-			fmt.Println(data.Artists[id].Name, "Is now in ur list")
+	if r.Method == "POST" {
+		_ = r.ParseForm()
+		if r.FormValue("addFav") != "" {
+			if data.Artists[id].Isliked {
+				removeFav(id)
+				fmt.Println(data.Artists[id].Name, "Is no more in ur list")
+			} else {
+				data.FavIndexs = append(data.FavIndexs, id)
+				fmt.Println(data.Artists[id].Name, "Is now in ur list")
+			}
+			data.Artists[id].Isliked = !data.Artists[id].Isliked
+			UpdateFavCookie(w)
 		}
-		favCookie := &http.Cookie{
-			Name:  "Fav",
-			Value: EncodeFavCookieValue(data.Fav),
-			//The "Fav" cookie has to never expire
-			//to save client's stats in his navigator :
-			//their favorite artists.
-			Expires: time.Date(2023, 12, 01, 00, 00, 00, 00, time.UTC),
-		}
-		http.SetCookie(w, favCookie)
 	}
 	_ = tpl.ExecuteTemplate(w, "artist.gohtml", data.Artists[id])
 }
