@@ -69,6 +69,17 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
+	if favCookie, err := r.Cookie("Fav"); err == nil {
+		DecodeFavCookie(favCookie)
+		fmt.Println("Client's fav artists :")
+		for _, artist := range data.Artists {
+			if artist.Isliked {
+				fmt.Println(artist.Name)
+			}
+		}
+	} else {
+		fmt.Println("No \"Fav\" cookie yet")
+	}
 	data.Input.text = ""
 	_ = r.ParseForm()
 	if textInput := r.FormValue("research-text"); textInput != "" {
@@ -112,6 +123,9 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 func ErrorHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "error.html", data)
+}
+func MostLikedHandler(w http.ResponseWriter, r *http.Request) {
+	_ = tpl.ExecuteTemplate(w, "mostliked.gohtml", data)
 }
 
 func ApiCategoryFill() {

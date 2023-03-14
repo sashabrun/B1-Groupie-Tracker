@@ -15,6 +15,7 @@ func main() {
 	http.HandleFunc("/home", handlers.HomeHandler)
 	http.HandleFunc("/artists", handlers.ArtistsHandler)
 	http.HandleFunc("/fav-artists", handlers.FavHandler)
+	http.HandleFunc("/most-liked", handlers.MostLikedHandler)
 	http.HandleFunc("/artist/", handlers.ArtistHandler)
 	http.HandleFunc("/", handlers.ErrorHandler)
 
