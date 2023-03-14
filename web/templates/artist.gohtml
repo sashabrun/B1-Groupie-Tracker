@@ -58,7 +58,7 @@
                     </form>
                 </div>
                 {{range $city,$dates := .Relations.DatesLocations}}
-                    <a href="{{DisplayLocationLink $city}}" style="text-decoration: none" ><h2>{{$city}}</h2></a>
+                    <a href="{{DisplayLocationLink $city}}" style="text-decoration: none" ><h2 class="city">{{$city}}</h2></a>
                         <ul>
                             {{range $dates}}
                                 <li>{{.}}</li>
