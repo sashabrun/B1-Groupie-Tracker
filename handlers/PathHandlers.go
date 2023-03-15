@@ -40,6 +40,7 @@ type Artist struct {
 	ConcertDates  string   `json:"concertDates"`
 	RelationsLink string   `json:"relations"`
 	Relations     Relations
+	MostListened  string
 	Isliked       bool `json:"isliked"`
 }
 
@@ -85,6 +86,9 @@ func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
 	_ = r.ParseForm()
 	if textInput := r.FormValue("research-text"); textInput != "" {
 		data.Input.text = textInput
+	}
+	if dateInput := r.FormValue("range"); dateInput != "" {
+		fmt.Println(dateInput)
 	}
 	_ = tpl.ExecuteTemplate(w, "artists.gohtml", data)
 }
@@ -147,8 +151,7 @@ func ApiCategoryFill() {
 	}
 	client := spotify.Authenticator{}.NewClient(token)
 
-	for _, dataArtist := range data.Artists {
-
+	for i, dataArtist := range data.Artists {
 		// Rechercher l'artiste sur Spotify
 		results, err := client.Search(dataArtist.Name, spotify.SearchTypeArtist)
 		if err != nil {
@@ -171,10 +174,16 @@ func ApiCategoryFill() {
 			fmt.Println("Erreur de récupération des catégories de musique de l'artiste:", err)
 			os.Exit(1)
 		}
+		topTracks, err := client.GetArtistsTopTracks(artist.ID, "US")
+		if err != nil {
+			fmt.Println("Error getting toptracks")
+		}
+		data.Artists[i].MostListened = string(topTracks[0].ID)
 		for _, genre := range fullartist.Genres {
 			data.Categories[genre] = append(data.Categories[genre], dataArtist)
 		}
 	}
+	storeArtists()
 
 	for category, artists := range data.Categories {
 		if len(artists) < 6 {
@@ -191,6 +200,12 @@ func ApiCategoryFill() {
 func storeCategories() {
 	CategoriesJSON, _ := json.Marshal(data.Categories)
 	if err := os.WriteFile("data/categories.json", CategoriesJSON, 0777); err != nil {
+		fmt.Println(err)
+	}
+}
+func storeArtists() {
+	ArtistsJSON, _ := json.Marshal(data.Artists)
+	if err := os.WriteFile("data/artists.json", ArtistsJSON, 0777); err != nil {
 		fmt.Println(err)
 	}
 }

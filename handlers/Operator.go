@@ -28,13 +28,21 @@ func removeFav(idToDelete int) {
 func RemoveIndex(s []int, index int) []int {
 	return append(s[:index], s[index+1:]...)
 }
-
-func FillData() {
-	apiRes, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
-	if err == nil {
-		_ = json.NewDecoder(apiRes.Body).Decode(&data.Artists)
+func GetArtists() {
+	file, _ := os.ReadFile("data/artists.json")
+	if len(file) != 0 {
+		_ = json.Unmarshal(file, &data.Artists)
+	} else {
+		apiRes, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+		if err == nil {
+			_ = json.NewDecoder(apiRes.Body).Decode(&data.Artists)
+		}
+		defer apiRes.Body.Close()
+		storeArtists()
 	}
-	defer apiRes.Body.Close()
+}
+func FillData() {
+	GetArtists()
 	FillLocation()
 	GetLikes()
 }
