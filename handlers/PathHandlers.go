@@ -29,9 +29,9 @@ type Relations struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 type Artist struct {
-	Id            int    `json:"id"`
-	Image         string `json:"image"`
-	Category      []string
+	Id            int      `json:"id"`
+	Image         string   `json:"image"`
+	Category      []string `json:"category"`
 	Name          string   `json:"name"`
 	Members       []string `json:"members"`
 	CreationDate  int      `json:"creationDate"`
@@ -40,8 +40,8 @@ type Artist struct {
 	ConcertDates  string   `json:"concertDates"`
 	RelationsLink string   `json:"relations"`
 	Relations     Relations
-	MostListened  string
-	Isliked       bool `json:"isliked"`
+	MostListened  string `json:"mostListened"`
+	Isliked       bool   `json:"isliked"`
 }
 
 var tpl = template.Must(template.New("").Funcs(template.FuncMap{
@@ -183,7 +183,6 @@ func ApiCategoryFill() {
 			data.Categories[genre] = append(data.Categories[genre], dataArtist)
 		}
 	}
-	storeArtists()
 
 	for category, artists := range data.Categories {
 		if len(artists) < 6 {
@@ -219,8 +218,14 @@ func GetCategories() {
 				data.Artists[artist.Id-1].Category = append(data.Artists[artist.Id-1].Category, style)
 			}
 		}
+		storeArtists()
 	} else {
 		ApiCategoryFill()
-		_ = json.Unmarshal(file, &data.Categories)
+		for style, artists := range data.Categories {
+			for _, artist := range artists {
+				data.Artists[artist.Id-1].Category = append(data.Artists[artist.Id-1].Category, style)
+			}
+		}
+		storeArtists()
 	}
 }
