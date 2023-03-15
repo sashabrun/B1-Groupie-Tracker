@@ -56,32 +56,12 @@ func LoadingHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	if favCookie, err := r.Cookie("Fav"); err == nil {
-		DecodeFavCookie(favCookie)
-		fmt.Println("Client's fav artists :")
-		for _, artist := range data.Artists {
-			if artist.Isliked {
-				fmt.Println(artist.Name)
-			}
-		}
-	} else {
-		fmt.Println("No \"Fav\" cookie yet")
-	}
+	CheckFavCookie(r)
 	_ = tpl.ExecuteTemplate(w, "home.gohtml", data)
 }
 
 func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
-	if favCookie, err := r.Cookie("Fav"); err == nil {
-		DecodeFavCookie(favCookie)
-		fmt.Println("Client's fav artists :")
-		for _, artist := range data.Artists {
-			if artist.Isliked {
-				fmt.Println(artist.Name)
-			}
-		}
-	} else {
-		fmt.Println("No \"Fav\" cookie yet")
-	}
+	CheckFavCookie(r)
 	data.Input.text = ""
 	_ = r.ParseForm()
 	if textInput := r.FormValue("research-text"); textInput != "" {
@@ -93,6 +73,7 @@ func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "artists.gohtml", data)
 }
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
+	CheckFavCookie(r)
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) != 3 {
 		http.NotFound(w, r)
@@ -124,6 +105,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func MyListHandler(w http.ResponseWriter, r *http.Request) {
+	CheckFavCookie(r)
 	_ = tpl.ExecuteTemplate(w, "mylist.gohtml", data)
 }
 
@@ -131,6 +113,7 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "error.html", data)
 }
 func MostLikedHandler(w http.ResponseWriter, r *http.Request) {
+	CheckFavCookie(r)
 	_ = tpl.ExecuteTemplate(w, "mostliked.gohtml", data)
 }
 

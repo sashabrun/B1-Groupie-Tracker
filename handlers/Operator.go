@@ -86,5 +86,5 @@ func SaveLikes() {
 	}
 }
 func GetArtistLikes(id int) int {
-	return data.Likes[id]
+	return data.Likes[id-1]
 }

@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 )
@@ -10,6 +11,9 @@ import (
 func DecodeFavCookie(cookie *http.Cookie) {
 	cookieData, _ := base64.URLEncoding.DecodeString(cookie.Value)
 	_ = json.Unmarshal(cookieData, &data.FavIndexs)
+	for index, _ := range data.Artists {
+		data.Artists[index].Isliked = false
+	}
 	for _, index := range data.FavIndexs {
 		data.Artists[index].Isliked = true
 	}
@@ -21,7 +25,19 @@ func EncodeFavCookieValue() string {
 	valueToSend := base64.URLEncoding.EncodeToString(FavJSON)
 	return valueToSend
 }
-
+func CheckFavCookie(r *http.Request) {
+	if favCookie, err := r.Cookie("Fav"); err == nil {
+		DecodeFavCookie(favCookie)
+		fmt.Println("Client's fav artists :")
+		for _, artist := range data.Artists {
+			if artist.Isliked {
+				fmt.Println(artist.Name)
+			}
+		}
+	} else {
+		fmt.Println("No \"Fav\" cookie yet")
+	}
+}
 func UpdateFavCookie(w http.ResponseWriter) {
 	favCookie := &http.Cookie{
 		Name:  "Fav",
