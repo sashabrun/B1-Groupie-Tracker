@@ -46,6 +46,7 @@ type Artist struct {
 var tpl = template.Must(template.New("").Funcs(template.FuncMap{
 	"ArtistNameContainsInput": ArtistNameContainsInput,
 	"DisplayLocationLink":     DisplayLocationLink,
+	"GetArtistLikes":          GetArtistLikes,
 }).ParseGlob("web/templates/*"))
 var data Data
 
@@ -117,9 +118,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_ = tpl.ExecuteTemplate(w, "artist.gohtml", data.Artists[id])
 }
-func MostLikedHandler(w http.ResponseWriter, r *http.Request) {
-	_ = tpl.ExecuteTemplate(w, "mostliked.gohtml", data)
-}
+
 func MyListHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "mylist.gohtml", data)
 }

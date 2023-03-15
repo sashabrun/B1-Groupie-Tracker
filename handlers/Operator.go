@@ -66,7 +66,7 @@ func GetLikes() {
 	if len(file) != 0 {
 		_ = json.Unmarshal(file, &data.Likes)
 	} else {
-		data.Likes = make([]int, 52)
+		data.Likes = make([]int, len(data.Artists))
 		SaveLikes()
 	}
 }
@@ -76,4 +76,7 @@ func SaveLikes() {
 	if err := os.WriteFile("data/Likes.json", LikesJSON, 0777); err != nil {
 		fmt.Println(err)
 	}
+}
+func GetArtistLikes(id int) int {
+	return data.Likes[id]
 }
