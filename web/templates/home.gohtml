@@ -81,15 +81,42 @@
 
 <main>
     {{range $category,$artists := .Categories}}
-        <div>
-            <h1 style="color: white">{{$category}}</h1>
-            {{range $artists}}
-                <a href="/artist/{{.Id}}">
-                    <img src="{{.Image}}" alt="">
-                </a>
-            {{end}}
-        </div>
+        <section class="carrousel">
+            <h1 class="subtitle">{{$category}}</h1>
+            <button class="precedente"><img src="../static/Image/icon-f.png" alt=""></button>
+            <button class="next"><img src="../static/Image/icon-f.png" alt=""></button>
+
+            <div class="carrousel-container">
+                {{range $artists}}
+                    <div class="carrousel-card">
+                        <div class="carrousel-image">
+                            <a href="/artist/{{.Id}}">
+                                <img src="{{.Image}}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                {{end}}
+            </div>
+        </section>
     {{end}}
+    <script>
+        const CarrouselContainers = [...document.querySelectorAll('.carrousel-container')];
+        const NextButton = [...document.querySelectorAll('.next')];
+        const PrecedenteButton = [...document.querySelectorAll('.precedente')];
+
+        CarrouselContainers.forEach((item, i) => {
+            let containerDimensions = item.getBoundingClientRect();
+            let containerWidth = containerDimensions.width;
+
+            NextButton[i].addEventListener('click', () => {
+                item.scrollLeft += containerWidth;
+            })
+
+            PrecedenteButton[i].addEventListener('click', () => {
+                item.scrollLeft -= containerWidth;
+            })
+        })
+    </script>
 </main>
 
 <footer>
