@@ -29,7 +29,7 @@
         </div>
         <div class="buttons">
             <form action="/artist/{{.Id}}" name="" method="post">
-                <a type="submit" value="listen" href="https://open.spotify.com/track/{{.MostListened}}">Listen</a>
+                <button type="submit" name="listen" value="listen" href="https://open.spotify.com/track/{{.MostListened}}">Listen</button>
                 {{if (.Isliked)}}
                     <button type="submit" name="addFav" value="{{.Id}}">Remove from my list</button>
                 {{else }}
@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="center-infos">
-        <h2>{{.Name        }}</h2>
+        <h1>{{.Name        }}</h1>
         <p class="rating">Category : </p>
         <ul>
             {{range .Category}}

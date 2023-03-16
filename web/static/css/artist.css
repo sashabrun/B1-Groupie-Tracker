@@ -21,7 +21,8 @@ header {
     padding-right: 2rem;
     padding-left: 1rem;
     padding-top: 1vh;
-    height: 30px;
+    height: 1.95vw;
+    width: 13.35vw;
 }
 
 nav ul {
@@ -89,12 +90,26 @@ nav a:hover {
 .container {
     display: flex;
     flex-wrap: wrap;
+    margin-left: 10vw;
 }
-
 .artist-button {
     color: white;
     margin: 0;
-    width: 33vw;
+    width: 25vw;
+}
+.center-infos {
+    color: white;
+    margin: 0;
+    width: 30vw;
+}
+
+.localisation {
+    color: white;
+    margin: 0;
+    width: 20vw;
+}
+.city {
+    color: white;
 }
 
 .rating {
@@ -104,8 +119,8 @@ nav a:hover {
 }
 
 img {
-    height: 20vw;
-    width: 20vw;
+    height: 22.5vw;
+    width: 22.5vw;
 }
 
 .description {
@@ -135,22 +150,6 @@ img {
 
 .buttons button:last-child {
     margin-right: 0;
-}
-
-.center-infos {
-    color: white;
-    margin: 0;
-    width: 33vw;
-}
-
-.localisation {
-    color: white;
-    margin: 0;
-    width: 33vw;
-}
-
-.city {
-    color: white;
 }
 
 footer {
