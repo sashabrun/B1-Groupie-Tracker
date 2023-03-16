@@ -11,8 +11,17 @@ import (
 
 func ArtistNameContainsInput(id int) bool {
 	id--
-	//id, _ := strconv.Atoi(ids)
-	if strings.Contains(strings.ToUpper(data.Artists[id].Name), strings.ToUpper(data.Input.text)) == true || strings.Contains(strings.ToUpper(data.Artists[id].FirstAlbum), strings.ToUpper(data.Input.text)) == true || strings.Contains(strings.ToUpper(strconv.Itoa(data.Artists[id].CreationDate)), strings.ToUpper(data.Input.text)) == true {
+	if data.Input.nbMembers != "" {
+		strNbMembers := strconv.Itoa(len(data.Artists[id].Members))
+		if strings.Contains(strNbMembers, data.Input.nbMembers) {
+			return true
+		}
+	} else if data.Input.creaDate != "" {
+		CreaDate, _ := strconv.Atoi(data.Input.creaDate)
+		if data.Artists[id].CreationDate >= CreaDate {
+			return true
+		}
+	} else if strings.Contains(strings.ToUpper(data.Artists[id].Name), strings.ToUpper(data.Input.text)) || strings.Contains(strings.ToUpper(data.Artists[id].FirstAlbum), strings.ToUpper(data.Input.text)) || strings.Contains(strings.ToUpper(strconv.Itoa(data.Artists[id].CreationDate)), strings.ToUpper(data.Input.text)) {
 		return true
 	}
 	return false
@@ -87,4 +96,26 @@ func SaveLikes() {
 }
 func GetArtistLikes(id int) int {
 	return data.Likes[id-1]
+}
+func storeCategories() {
+	CategoriesJSON, _ := json.Marshal(data.Categories)
+	if err := os.WriteFile("data/categories.json", CategoriesJSON, 0777); err != nil {
+		fmt.Println(err)
+	}
+}
+func storeArtists() {
+	ArtistsJSON, _ := json.Marshal(data.Artists)
+	if err := os.WriteFile("data/artists.json", ArtistsJSON, 0777); err != nil {
+		fmt.Println(err)
+	}
+}
+func GetCategories() {
+	data.Categories = make(map[string][]Artist)
+	file, _ := os.ReadFile("data/categories.json")
+	if len(file) != 0 {
+		_ = json.Unmarshal(file, &data.Categories)
+	} else {
+		ApiCategoryFill()
+	}
+	storeArtists()
 }

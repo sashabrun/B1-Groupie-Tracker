@@ -28,12 +28,6 @@ func EncodeFavCookieValue() string {
 func CheckFavCookie(r *http.Request) {
 	if favCookie, err := r.Cookie("Fav"); err == nil {
 		DecodeFavCookie(favCookie)
-		fmt.Println("Client's fav artists :")
-		for _, artist := range data.Artists {
-			if artist.Isliked {
-				fmt.Println(artist.Name)
-			}
-		}
 	} else {
 		fmt.Println("No \"Fav\" cookie yet")
 	}

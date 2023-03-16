@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"github.com/zmb3/spotify"
 	"golang.org/x/oauth2/clientcredentials"
@@ -20,9 +19,12 @@ type Data struct {
 	Input      input
 	FavIndexs  []int
 	Likes      []int
+	foundcount int
 }
 type input struct {
-	text string
+	text      string
+	creaDate  string
+	nbMembers string
 }
 type Relations struct {
 	Id             int                 `json:"id"`
@@ -62,14 +64,21 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
 	CheckFavCookie(r)
-	data.Input.text = ""
+	data.foundcount = 0
+	data.Input = input{}
 	_ = r.ParseForm()
 	if textInput := r.FormValue("research-text"); textInput != "" {
 		data.Input.text = textInput
 	}
 	if dateInput := r.FormValue("range"); dateInput != "" {
-		fmt.Println(dateInput)
+		data.Input.creaDate = dateInput
 	}
+	if nbMembers := r.FormValue("nb-members"); nbMembers != "" {
+		data.Input.nbMembers = nbMembers
+	}
+	fmt.Println("Text Input:", data.Input.text)
+	fmt.Println("NbMembers Input:", data.Input.nbMembers)
+	fmt.Println("CreaDate Input:", data.Input.creaDate)
 	_ = tpl.ExecuteTemplate(w, "artists.gohtml", data)
 }
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
@@ -172,43 +181,10 @@ func ApiCategoryFill() {
 			delete(data.Categories, category)
 		} else {
 			fmt.Println(category, ":")
-			for _, artist := range artists {
-				fmt.Println(artist.Name)
+			for i, _ := range artists {
+				fmt.Println(data.Artists[i].Name)
 			}
 		}
 	}
 	storeCategories()
-}
-func storeCategories() {
-	CategoriesJSON, _ := json.Marshal(data.Categories)
-	if err := os.WriteFile("data/categories.json", CategoriesJSON, 0777); err != nil {
-		fmt.Println(err)
-	}
-}
-func storeArtists() {
-	ArtistsJSON, _ := json.Marshal(data.Artists)
-	if err := os.WriteFile("data/artists.json", ArtistsJSON, 0777); err != nil {
-		fmt.Println(err)
-	}
-}
-func GetCategories() {
-	data.Categories = make(map[string][]Artist)
-	file, _ := os.ReadFile("data/categories.json")
-	if len(file) != 0 {
-		_ = json.Unmarshal(file, &data.Categories)
-		for style, artists := range data.Categories {
-			for _, artist := range artists {
-				data.Artists[artist.Id-1].Category = append(data.Artists[artist.Id-1].Category, style)
-			}
-		}
-		storeArtists()
-	} else {
-		ApiCategoryFill()
-		for style, artists := range data.Categories {
-			for _, artist := range artists {
-				data.Artists[artist.Id-1].Category = append(data.Artists[artist.Id-1].Category, style)
-			}
-		}
-		storeArtists()
-	}
 }
