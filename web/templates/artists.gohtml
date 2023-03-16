@@ -19,44 +19,49 @@
             <li><a href="/mylist">My List</a></li>
         </ul>
     </nav>
-    <div class="toWrap">
-        <p id="CarrierYears">Carrier Starting Years</p>
-        <label>
-            <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900" max="2023" value="1999" name="range">
-        </label>
-        <p id="CarrierYears2"></p>
-    </div>
-    <p id="nMembers">N° Members : </p>
-    <div class="toWrap2">
-        <label>
-            1
-            <input type="checkbox" id="1" name="1" value="false">
-        </label>
-        <label>
-            2
-            <input type="checkbox" id="2" name="2" value="false">
-        </label>
-        <label>
-            3
-            <input type="checkbox" id="3" name="3" value="false">
-        </label>
-        <label>
-            4
-            <input type="checkbox" id="4" name="4" value="false">
-        </label>
-        <label>
-            5
-            <input type="checkbox" id="5" name="5" value="false">
-        </label>
-        <label>
-            6
-            <input type="checkbox" id="6" name="6" value="false">
-        </label>
-    </div>
-    <button class="ParentCredit">Submit</button>
+    <form action="/artists">
+        <div class="toWrap">
+            <p id="CarrierYears">Carrier Starting Years</p>
+            <label>
+                <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900" max="2023"
+                       value="1999" name="range">
+            </label>
+            <p id="CarrierYears2"></p>
+        </div>
+        <p id="nMembers">N° Members : </p>
+        <div class="toWrap2">
+            <label>
+                1
+                <input type="checkbox" id="1" name="1" value="false">
+            </label>
+            <label>
+                2
+                <input type="checkbox" id="2" name="2" value="false">
+            </label>
+            <label>
+                3
+                <input type="checkbox" id="3" name="3" value="false">
+            </label>
+            <label>
+                4
+                <input type="checkbox" id="4" name="4" value="false">
+            </label>
+            <label>
+                5
+                <input type="checkbox" id="5" name="5" value="false">
+            </label>
+            <label>
+                6
+                <input type="checkbox" id="6" name="6" value="false">
+            </label>
+        </div>
+        <button class="ParentCredit" type="submit">Submit</button>
+    </form>
+
     <form action="/artists" name="osef" class="search-form">
         <label>
-            <input type="text" autocomplete="off" name="research-text" list="artists" placeholder="Artists, Albums, Years">
+            <input type="text" autocomplete="off" name="research-text" list="artists"
+                   placeholder="Artists, Albums, Years">
         </label>
         <datalist id="artists">
             {{range .Artists}}
@@ -93,10 +98,15 @@
 
 <footer>
     <ul class="social-icons">
-        <li><a href="https://www.facebook.com/groups/368619363542041/?locale=fr_FR"><img class="facebook" src="../static/Image/facebook-icon.png"></a></li>
-        <li><a href="https://www.instagram.com/netflixfr/"><img class="instagram" src="../static/Image/instagram-icon.png"></a></li>
-        <li><a href="https://twitter.com/NetflixFR"><img class="twitter" src="../static/Image/twitter-icon.png"></a></li>
-        <li><a href="https://www.youtube.com/netflixfrance"><img class="youtube" src="../static/Image/youtube-icon.png"></a></li>
+        <li><a href="https://www.facebook.com/groups/368619363542041/?locale=fr_FR"><img class="facebook"
+                                                                                         src="../static/Image/facebook-icon.png"></a>
+        </li>
+        <li><a href="https://www.instagram.com/netflixfr/"><img class="instagram"
+                                                                src="../static/Image/instagram-icon.png"></a></li>
+        <li><a href="https://twitter.com/NetflixFR"><img class="twitter" src="../static/Image/twitter-icon.png"></a>
+        </li>
+        <li><a href="https://www.youtube.com/netflixfrance"><img class="youtube" src="../static/Image/youtube-icon.png"></a>
+        </li>
     </ul>
     <div class="container">
         <div class="button-page">

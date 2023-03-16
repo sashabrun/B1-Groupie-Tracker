@@ -21,7 +21,6 @@ func main() {
 
 	handlers.FillData()
 	handlers.GetCategories()
-	fmt.Println(handlers.DisplayLocationLink("24"))
 
 	fmt.Println("Listening on http://localhost" + PORT + "/loading")
 	if err := http.ListenAndServe(PORT, nil); err != nil {

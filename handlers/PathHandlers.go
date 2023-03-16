@@ -29,9 +29,9 @@ type Relations struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 type Artist struct {
-	Id            int    `json:"id"`
-	Image         string `json:"image"`
-	Category      []string
+	Id            int      `json:"id"`
+	Image         string   `json:"image"`
+	Category      []string `json:"category"`
 	Name          string   `json:"name"`
 	Members       []string `json:"members"`
 	CreationDate  int      `json:"creationDate"`
@@ -40,12 +40,14 @@ type Artist struct {
 	ConcertDates  string   `json:"concertDates"`
 	RelationsLink string   `json:"relations"`
 	Relations     Relations
-	Isliked       bool `json:"isliked"`
+	MostListened  string `json:"mostListened"`
+	Isliked       bool   `json:"isliked"`
 }
 
 var tpl = template.Must(template.New("").Funcs(template.FuncMap{
 	"ArtistNameContainsInput": ArtistNameContainsInput,
 	"DisplayLocationLink":     DisplayLocationLink,
+	"GetArtistLikes":          GetArtistLikes,
 }).ParseGlob("web/templates/*"))
 var data Data
 
@@ -54,40 +56,24 @@ func LoadingHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	if favCookie, err := r.Cookie("Fav"); err == nil {
-		DecodeFavCookie(favCookie)
-		fmt.Println("Client's fav artists :")
-		for _, artist := range data.Artists {
-			if artist.Isliked {
-				fmt.Println(artist.Name)
-			}
-		}
-	} else {
-		fmt.Println("No \"Fav\" cookie yet")
-	}
+	CheckFavCookie(r)
 	_ = tpl.ExecuteTemplate(w, "home.gohtml", data)
 }
 
 func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
-	if favCookie, err := r.Cookie("Fav"); err == nil {
-		DecodeFavCookie(favCookie)
-		fmt.Println("Client's fav artists :")
-		for _, artist := range data.Artists {
-			if artist.Isliked {
-				fmt.Println(artist.Name)
-			}
-		}
-	} else {
-		fmt.Println("No \"Fav\" cookie yet")
-	}
+	CheckFavCookie(r)
 	data.Input.text = ""
 	_ = r.ParseForm()
 	if textInput := r.FormValue("research-text"); textInput != "" {
 		data.Input.text = textInput
 	}
+	if dateInput := r.FormValue("range"); dateInput != "" {
+		fmt.Println(dateInput)
+	}
 	_ = tpl.ExecuteTemplate(w, "artists.gohtml", data)
 }
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
+	CheckFavCookie(r)
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) != 3 {
 		http.NotFound(w, r)
@@ -117,7 +103,9 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_ = tpl.ExecuteTemplate(w, "artist.gohtml", data.Artists[id])
 }
+
 func MyListHandler(w http.ResponseWriter, r *http.Request) {
+	CheckFavCookie(r)
 	_ = tpl.ExecuteTemplate(w, "mylist.gohtml", data)
 }
 
@@ -125,6 +113,7 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tpl.ExecuteTemplate(w, "error.html", data)
 }
 func MostLikedHandler(w http.ResponseWriter, r *http.Request) {
+	CheckFavCookie(r)
 	_ = tpl.ExecuteTemplate(w, "mostliked.gohtml", data)
 }
 
@@ -145,8 +134,7 @@ func ApiCategoryFill() {
 	}
 	client := spotify.Authenticator{}.NewClient(token)
 
-	for _, dataArtist := range data.Artists {
-
+	for i, dataArtist := range data.Artists {
 		// Rechercher l'artiste sur Spotify
 		results, err := client.Search(dataArtist.Name, spotify.SearchTypeArtist)
 		if err != nil {
@@ -169,6 +157,11 @@ func ApiCategoryFill() {
 			fmt.Println("Erreur de récupération des catégories de musique de l'artiste:", err)
 			os.Exit(1)
 		}
+		topTracks, err := client.GetArtistsTopTracks(artist.ID, "US")
+		if err != nil {
+			fmt.Println("Error getting toptracks")
+		}
+		data.Artists[i].MostListened = string(topTracks[0].ID)
 		for _, genre := range fullartist.Genres {
 			data.Categories[genre] = append(data.Categories[genre], dataArtist)
 		}
@@ -192,6 +185,12 @@ func storeCategories() {
 		fmt.Println(err)
 	}
 }
+func storeArtists() {
+	ArtistsJSON, _ := json.Marshal(data.Artists)
+	if err := os.WriteFile("data/artists.json", ArtistsJSON, 0777); err != nil {
+		fmt.Println(err)
+	}
+}
 func GetCategories() {
 	data.Categories = make(map[string][]Artist)
 	file, _ := os.ReadFile("data/categories.json")
@@ -202,8 +201,14 @@ func GetCategories() {
 				data.Artists[artist.Id-1].Category = append(data.Artists[artist.Id-1].Category, style)
 			}
 		}
+		storeArtists()
 	} else {
 		ApiCategoryFill()
-		_ = json.Unmarshal(file, &data.Categories)
+		for style, artists := range data.Categories {
+			for _, artist := range artists {
+				data.Artists[artist.Id-1].Category = append(data.Artists[artist.Id-1].Category, style)
+			}
+		}
+		storeArtists()
 	}
 }
