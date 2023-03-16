@@ -22,51 +22,50 @@
 
     </form>
 </header>
-
 <div class="container">
-    <div class="main-content">
-        <div class="artist-details">
-            <div class="artist-image">
-                <img src="{{.Image}}" alt="">
-            </div>
-            <div class="artist-info">
-                <h2>{{.Name        }}</h2>
-                <p class="rating">Category : </p>
-                <ul>
-                    {{range .Category}}
-                    <li>{{.}}</li>
-                    {{end}}
-                </ul>
-                <p class="description">Date of creation : {{.CreationDate}} </p>
-                <p class="description">First Album : {{.FirstAlbum  }} </p>
-                {{if gt (len .Members) 1}}
-                    <ul class="cast-list">
-                        Members :
-                        {{range .Members}}
-                            <li>{{.}}</li>
-                        {{end}}
-                    </ul>
-                {{end}}
-                <div class="buttons">
-                    <form action="/artist/{{.Id}}" name="" method="post">
-                        <a href="https://open.spotify.com/track/{{.MostListened}}">Listen to Music</a>
-                        {{if (.Isliked)}}
-                            <button type="submit" name="addFav" value="{{.Id}}">Remove from my list</button>
-                        {{else }}
-                            <button type="submit" name="addFav" value="{{.Id}}">Add to my list</button>
-                        {{end}}
-                    </form>
-                </div>
-                {{range $city,$dates := .Relations.DatesLocations}}
-                    <a href="{{DisplayLocationLink $city}}" style="text-decoration: none" ><h2 class="city">{{$city}}</h2></a>
-                        <ul>
-                            {{range $dates}}
-                                <li>{{.}}</li>
-                            {{end}}
-                        </ul>
-                {{end}}
-            </div>
+    <div class="artist-button">
+        <div class="artist-image">
+            <img src="{{.Image}}" alt="">
         </div>
+        <div class="buttons">
+            <form action="/artist/{{.Id}}" name="" method="post">
+                <a type="submit" value="listen" href="https://open.spotify.com/track/{{.MostListened}}">Listen</a>
+                {{if (.Isliked)}}
+                    <button type="submit" name="addFav" value="{{.Id}}">Remove from my list</button>
+                {{else }}
+                    <button type="submit" name="addFav" value="{{.Id}}">Add to my list</button>
+                {{end}}
+            </form>
+        </div>
+    </div>
+    <div class="center-infos">
+        <h2>{{.Name        }}</h2>
+        <p class="rating">Category : </p>
+        <ul>
+            {{range .Category}}
+                <li>{{.}}</li>
+            {{end}}
+        </ul>
+        <p class="description">Date of creation : {{.CreationDate}} </p>
+        <p class="description">First Album : {{.FirstAlbum  }} </p>
+        {{if gt (len .Members) 1}}
+            <ul class="cast-list">
+                Members :
+                {{range .Members}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
+                {{end}}
+    </div>
+    <div class="localisation">
+        {{range $city,$dates := .Relations.DatesLocations}}
+            <a href="{{DisplayLocationLink $city}}" style="text-decoration: none" ><h2 class="city">{{$city}}</h2></a>
+            <ul>
+                {{range $dates}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
+        {{end}}
     </div>
 </div>
 

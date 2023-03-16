@@ -1,11 +1,10 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-background-color: #101010;
+    background-color: #101010;
 }
 
 header {
@@ -83,26 +82,30 @@ nav a:hover {
 .artist-info {
     color: white;
 }
-
 .rating {
     color: white;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.main-content {
     display: flex;
     flex-wrap: wrap;
+}
+
+.artist-button {
+    color: white;
+    margin: 0;
+    width: 33vw;
 }
 
 .rating {
     color: white;
     font-size: 24px;
     margin-bottom: 20px;
+}
+
+img {
+    height: 20vw;
+    width: 20vw;
 }
 
 .description {
@@ -117,7 +120,6 @@ nav a:hover {
     margin-bottom: 20px;
     list-style: none;
 }
-
 .buttons {
     margin-top: 20px;
 }
@@ -135,15 +137,30 @@ nav a:hover {
     margin-right: 0;
 }
 
+.center-infos {
+    color: white;
+    margin: 0;
+    width: 33vw;
+}
+
+.localisation {
+    color: white;
+    margin: 0;
+    width: 33vw;
+}
+
 .city {
     color: white;
 }
 
 footer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     background-color: #1C1C1C;
     color: #757575;
     font-size: 14px;
-    padding: 20px 0;
+    width: 98.5vw;
 }
 
 footer a {
