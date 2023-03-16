@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html style="background-color: black">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/artists.css">
+    <title>List of Artist - Groupie Tracker</title>
+    <link rel="icon" href="../static/Image/N-logo.png">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="../static/Image/Groupie-Tracker-Toudoum.png" alt="Groupie Logo">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/artists">Artists</a></li>
+            <li><a href="most-liked">The Most Liked</a></li>
+            <li><a href="/fav-artists">My List</a></li>
+        </ul>
+    </nav>
+    <form class="search-form">
+        <label>
+            <input type="text" placeholder="Artists, Albums, Years">
+        </label>
+        <button type="submit"><img class="logo2" src="../static/Image/search-icon.png"></button>
+    </form>
+</header>
+
+<main>
+    <div class="artists">
+        {{range .Artists}}
+            {{if (.Isliked)}}
+                <a href="/artist/{{.Id}}">
+                    <img src="{{.Image}}" style="margin-bottom: 40px" width="300px" height="300px" alt="">
+                </a>
+            {{end}}
+        {{end}}
+    </div>
+</main>
+
+<footer>
+    <ul class="social-icons">
+        <li><a href="#"><img class="facebook" src="../static/Image/facebook-icon.png"></a></li>
+        <li><a href="#"><img class="instagram" src="../static/Image/instagram-icon.png"></a></li>
+        <li><a href="#"><img class="twitter" src="../static/Image/twitter-icon.png"></a></li>
+        <li><a href="#"><img class="youtube" src="../static/Image/youtube-icon.png"></a></li>
+    </ul>
+    <div class="container">
+        <div class="button-page">
+            <div class="button-page1">
+                <ul>
+                    <li><a href="#">Audio and Subtitles</a></li>
+                    <li><a href="#">Media Center</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="button-page2">
+                <ul>
+                    <li><a href="#">Audio Description</a></li>
+                    <li><a href="#">Investor Relations</a></li>
+                    <li><a href="#">Legal Notices</a></li>
+                </ul>
+            </div>
+            <div class="button-page3">
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Jobs</a></li>
+                    <li><a href="#">Cookie Preferences</a></li>
+                </ul>
+            </div>
+            <div class="button-page4">
+                <ul>
+                    <li><a href="#">Gift Cards</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Corporate Information</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="corporation">
+            <p>&copy; 2023 Groupie Tracker, Inc.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

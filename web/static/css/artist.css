@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #101010;
+}
+
+header {
+    background-color: #1C1C1C;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.logo img {
+    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-top: 1vh;
+    height: 1.95vw;
+    width: 13.35vw;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    list-style: none;
+    margin: 0 10px;
+}
+
+nav a {
+    font-family: "Arial";
+    color: white;
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+nav a:hover {
+    border-bottom: 2px solid white;
+    padding-bottom: 5px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+}
+
+.search-form input[type="text"] {
+    border: none;
+    padding: 7.5px;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-form button {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 4.5vh;
+}
+
+.logo2{
+    height: 2vh;
+    width: 1vw;
+}
+
+.artist-info {
+    color: white;
+}
+.rating {
+    color: white;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10vw;
+}
+.artist-button {
+    color: white;
+    margin: 0;
+    width: 25vw;
+}
+.center-infos {
+    color: white;
+    margin: 0;
+    width: 30vw;
+}
+
+.localisation {
+    color: white;
+    margin: 0;
+    width: 20vw;
+}
+.city {
+    color: white;
+}
+
+.rating {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+img {
+    height: 22.5vw;
+    width: 22.5vw;
+}
+
+.description {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.cast-list {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 20px;
+    list-style: none;
+}
+.buttons {
+    margin-top: 20px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor:pointer;
+}
+
+.buttons button:last-child {
+    margin-right: 0;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #1C1C1C;
+    color: #757575;
+    font-size: 14px;
+    width: 98.5vw;
+    padding: 20px 0;
+}
+
+footer a {
+    color: #757575;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #B3B3B3;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 10px;
+}
+
+footer hr {
+    border-color: #757575;
+}
+
+footer p {
+    margin-bottom: 0;
+}
+
+.button-page {
+    display: flex;
+    justify-content: center;
+}
+
+.button-page > * {
+    margin-left: 4.5rem;
+    margin-right: 4.5rem;
+}
+
+.corporation {
+    margin-left: 5.1vw;
+}
+
+.social-icons {
+    list-style: none;
+    text-align: right;
+    margin-right: 50vw;
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+}
+
+.social-icons li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.social-icons li:first-child {
+    margin-left: 0;
+}
+
+.social-icons a {
+    color: #757575;
+    font-size: 18px;
+}
+
+.social-icons a:hover {
+    color: #B3B3B3;
+}
+
+.facebook {
+    font-size: 18px;
+    height: 3.4vh;
+    width: 0.9vw;
+}
+.instagram {
+    font-size: 18px;
+    height: 3vh;
+    width: 1.5vw;
+}
+.twitter {
+    font-size: 18px;
+    height: 3vh;
+    width: 1.5vw;
+}
+.youtube {
+    font-size: 18px;
+    height: 2.5vh;
+    width: 1.5vw;
+}

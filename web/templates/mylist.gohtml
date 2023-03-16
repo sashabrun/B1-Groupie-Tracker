@@ -2,8 +2,8 @@
 <html style="background-color: black">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/css/home.css">
-    <title>Home - Groupie Tracker</title>
+    <link rel="stylesheet" href="../static/css/mylist.css">
+    <title>My List - Groupie Tracker</title>
     <link rel="icon" href="../static/Image/N-logo.png">
 </head>
 <body>
@@ -15,15 +15,14 @@
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/artists">Artists</a></li>
-            <li><a href="/mostliked ">The Most Liked</a></li>
+            <li><a href="/mostliked">The Most Liked</a></li>
             <li><a href="/mylist">My List</a></li>
         </ul>
     </nav>
     <div class="toWrap">
         <p id="CarrierYears">Carrier Starting Years</p>
         <label>
-            <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900" max="2023"
-                   value="1999" name="range">
+            <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900" max="2023" value="1999" name="range">
         </label>
         <p id="CarrierYears2"></p>
     </div>
@@ -57,8 +56,7 @@
     <button class="ParentCredit">Submit</button>
     <form action="/artists" name="osef" class="search-form">
         <label>
-            <input type="text" autocomplete="off" name="research-text" list="artists"
-                   placeholder="Artists, Albums, Years">
+            <input type="text" autocomplete="off" name="research-text" list="artists" placeholder="Artists, Albums, Years">
         </label>
         <datalist id="artists">
             {{range .Artists}}
@@ -82,25 +80,15 @@
 </header>
 
 <main>
-    {{range $category,$artists := .Categories}}
-        <section class="carrousel">
-            <h1 class="subtitle">{{$category}}</h1>
-            <button class="precedente"><img src="../static/Image/icon-f.png" alt=""></button>
-            <button class="next"><img src="../static/Image/icon-f.png" alt=""></button>
-
-            <div class="carrousel-container">
-                {{range $artists}}
-                    <div class="carrousel-card">
-                        <div class="carrousel-image">
-                            <a href="/artist/{{.Id}}">
-                                <img src="{{.Image}}" alt="">
-                            </a>
-                        </div>
-                    </div>
-                {{end}}
-            </div>
-        </section>
-    {{end}}
+    <div class="artists">
+        {{range .Artists}}
+            {{if (.Isliked)}}
+                <a href="/artist/{{.Id}}">
+                    <img src="{{.Image}}" style="margin-bottom: 40px" width="300px" height="300px" alt="">
+                </a>
+            {{end}}
+        {{end}}
+    </div>
 </main>
 
 <footer>
