@@ -164,6 +164,19 @@ label {
     height: 4vh;
 }
 
+.artist-most-liked {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-left: 16vw;
+}
+
+.Number-classment {
+    width: 25vw;
+}
+
+
+
 footer {
     background-color: #1C1C1C;
     color: #757575;

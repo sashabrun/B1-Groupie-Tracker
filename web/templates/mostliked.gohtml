@@ -82,15 +82,21 @@
 </header>
 
 <main >
-    {{range .Artists}}
-        {{$nbLikes := GetArtistLikes .Id}}
-        {{if gt $nbLikes 0}}
-            <div style="display: flex;flex-wrap: wrap;align-items: center">
-                <img src="{{.Image}}" style="width: 100px;height: 100px" alt=""><h2 style="color: white">:{{$nbLikes}}</h2>
-            </div>
+    <div class="artist-most-liked">
+        {{range .Artists}}
+            {{$nbLikes := GetArtistLikes .Id}}
+            {{if gt $nbLikes 0}}
+                <div class="Number-classment">
+                    <a href="/artist/{{.Id}}">
+                        <img src="{{.Image}}" alt="">
+                    </a>
+                    <h2 style="color: white">:{{$nbLikes}}</h2>
+                </div>
+            {{end}}
         {{end}}
-    {{end}}
+    </div>
 </main>
+
 
 <footer>
     <ul class="social-icons">

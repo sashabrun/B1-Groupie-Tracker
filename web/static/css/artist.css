@@ -160,6 +160,7 @@ footer {
     color: #757575;
     font-size: 14px;
     width: 98.5vw;
+    padding: 20px 0;
 }
 
 footer a {
@@ -199,13 +200,13 @@ footer p {
 }
 
 .corporation {
-    margin-left: 21.1vw;
+    margin-left: 5.1vw;
 }
 
 .social-icons {
     list-style: none;
     text-align: right;
-    margin-right: 68vw;
+    margin-right: 50vw;
     margin-top: 0vh;
     margin-bottom: 0vh;
 }
