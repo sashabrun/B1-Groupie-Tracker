@@ -152,6 +152,11 @@ img {
     margin-right: 0;
 }
 
+.button-listen {
+    color: white;
+    text-decoration: none;
+}
+
 footer {
     display: flex;
     align-items: center;

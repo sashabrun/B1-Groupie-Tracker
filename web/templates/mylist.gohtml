@@ -19,41 +19,44 @@
             <li><a href="/mylist">My List</a></li>
         </ul>
     </nav>
-    <div class="toWrap">
-        <p id="CarrierYears">Carrier Starting Years</p>
-        <label>
-            <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900" max="2023" value="1999" name="range">
-        </label>
-        <p id="CarrierYears2"></p>
-    </div>
-    <p id="nMembers">N° Members : </p>
-    <div class="toWrap2">
-        <label>
-            1
-            <input type="checkbox" id="1" name="1" value="false">
-        </label>
-        <label>
-            2
-            <input type="checkbox" id="2" name="2" value="false">
-        </label>
-        <label>
-            3
-            <input type="checkbox" id="3" name="3" value="false">
-        </label>
-        <label>
-            4
-            <input type="checkbox" id="4" name="4" value="false">
-        </label>
-        <label>
-            5
-            <input type="checkbox" id="5" name="5" value="false">
-        </label>
-        <label>
-            6
-            <input type="checkbox" id="6" name="6" value="false">
-        </label>
-    </div>
-    <button class="ParentCredit">Submit</button>
+    <form action="/artists">
+        <div class="toWrap">
+            <p id="CarrierYears">Carrier Starting Years</p>
+            <label>
+                <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900" max="2023"
+                       value="1900" name="range">
+            </label>
+            <p id="CarrierYears2"></p>
+        </div>
+        <p id="nMembers">N° Members : </p>
+        <div class="toWrap2">
+            <label>
+                1
+                <input type="checkbox" id="1" name="nb-members" value="1">
+            </label>
+            <label>
+                2
+                <input type="checkbox" id="2" name="nb-members" value="2">
+            </label>
+            <label>
+                3
+                <input type="checkbox" id="3" name="nb-members" value="3">
+            </label>
+            <label>
+                4
+                <input type="checkbox" id="4" name="nb-members" value="4">
+            </label>
+            <label>
+                5
+                <input type="checkbox" id="5" name="nb-members" value="5">
+            </label>
+            <label>
+                6
+                <input type="checkbox" id="6" name="nb-members" value="6">
+            </label>
+        </div>
+        <button class="ParentCredit" type="submit">Submit</button>
+    </form>
     <form action="/artists" name="osef" class="search-form">
         <label>
             <input type="text" autocomplete="off" name="research-text" list="artists" placeholder="Artists, Albums, Years">

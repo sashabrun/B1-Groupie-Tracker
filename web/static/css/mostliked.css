@@ -57,6 +57,7 @@ nav a:hover {
     border: none;
     padding: 7.5px;
     margin-top: 1.5vh;
+    margin-right: 10px;
     border-radius: 5px;
     font-size: 16px;
 }
@@ -66,7 +67,6 @@ nav a:hover {
     border: none;
     color: white;
     padding: 10px;
-    margin-left: 0.65vw;
     border-radius: 5px;
     cursor: pointer;
     height: 4.5vh;
@@ -80,7 +80,8 @@ nav a:hover {
 .toWrap {
     font-family: "Arial";
     position: absolute;
-    margin-left: 51vw;
+    margin-top: -6.5vh;
+    margin-left: 11.75vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -127,8 +128,8 @@ input[type=range]::-webkit-slider-thumb {
 .toWrap2 {
     font-family: "Arial";
     position: absolute;
-    margin-top: 6vh;
-    margin-left: 61.75vw;
+    margin-top: 2.5vh;
+    margin-left: 22.7vw;
     display: flex;
     gap: -1vw;
 }
@@ -136,8 +137,8 @@ input[type=range]::-webkit-slider-thumb {
 #nMembers {
     font-family: "Arial";
     position: absolute;
-    margin-top: -1vh;
-    margin-left: 64.75vw;
+    margin-top: -2.75vh;
+    margin-left: 25.75vw;
     display: flex;
 }
 
@@ -153,15 +154,15 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 0.2vh;
-    margin-left: 75.1vw;
+    margin-top: -2.05vh;
+    margin-left: 36vw;
     background-color: red;
     border: none;
     color: white;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    height: 4vh;
+    height: 4.15vh;
 }
 
 .artist-most-liked {
